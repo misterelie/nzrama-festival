@@ -3,7 +3,7 @@
     <!-- Navbar -->
     <nav class="navbar-custom">
         <ul class="list-unstyled topbar-nav float-right mb-0">
-            <li class="dropdown hide-phone"><a
+            {{-- <li class="dropdown hide-phone"><a
                     class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown"
                     href="#" role="button" aria-haspopup="false" aria-expanded="false"><i data-feather="search"
                         class="topbar-icon"></i></a>
@@ -15,7 +15,7 @@
                                 type="submit"><i class="ti-search"></i></button></form>
                     </div>
                 </div>
-            </li>
+            </li> --}}
             <li class="dropdown notification-list"><a
                     class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown"
                     href="#" role="button" aria-haspopup="false" aria-expanded="false"><i data-feather="bell"

@@ -38,7 +38,7 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description">
     <meta content="" name="author">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"><!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('admin/assets/images/favicon.png') }}">
+    <link rel="shortcut icon" href="{{asset('admin/assets/images/logo-nzrama.png')}}">
     <link href="{{ asset('admin/plugins/datatables/dataTables.bootstrap4.min.css') }}"
         rel="stylesheet" type="text/css">
     <link href="{{ asset('admin/plugins/datatables/buttons.bootstrap4.min.css') }}"
@@ -73,7 +73,6 @@
         <!-- LOGO -->
         @include('partials-admin.left-sidenav')
     </div><!-- end left-sidenav-->
-
 
     <div class="page-wrapper">
         <!-- Top Bar Start -->

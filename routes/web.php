@@ -46,11 +46,13 @@ Route::get('/nos-commssions', [AdminCommissionController::class, 'add_commission
 Route::post('/store/commission', [AdminCommissionController::class, 'save_commission']);
 Route::put('/update/commission/{commissions}', [AdminCommissionController ::class, 'update']);
 Route::delete('/supprime/commission/{commissions}', [AdminCommissionController ::class, 'destroy']);
+Route::put('/update.etat/{commissions}', [AdminCommissionController ::class, 'update_etat'])->name('update.etat'); 
 
 //section status
 Route::get('/etat/stauts', [AdminCommissionController::class, 'add_status']);
 Route::post('/save.etat', [AdminCommissionController::class, 'store_status'])->name('save.etat');
 Route::put('/update.status/{etat}', [AdminCommissionController ::class, 'update_status'])->name('update.status');
+
 Route::delete('/delete_status/{etat}', [AdminCommissionController ::class, 'destroy_status'])->name('delete_status');
 Route::post('/etat.commission', [AdminCommissionController::class, 'status_commission'])->name('etat.commission');
 

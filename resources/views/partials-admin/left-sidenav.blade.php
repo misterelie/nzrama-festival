@@ -12,7 +12,7 @@
     <!--end logo-->
     <div class="menu-content h-100" data-simplebar>
         <ul class="metismenu left-sidenav-menu">
-            <li class="menu-label mt-0">PLANNING N'ZRAMA FESTIVAL</li>
+            <li class="menu-label mt-0"></li>
             {{-- <li><a href="javascript: void(0);"><i data-feather="home"
                         class="align-self-center menu-icon"></i><span>STATISTIQUES DONNEES</span><span class="menu-arrow"><i
                             class="mdi mdi-chevron-right"></i></span></a>
@@ -41,8 +41,11 @@
                         </ul>
                     </li> --}}
                     <li class="nav-item"><a class="nav-link" href="{{ url('nos-commssions') }}"><i
-                                class="ti-control-record"></i>Liste commissions</a>
+                                class="ti-control-record"></i>Les commissions</a>
                     </li>
+                    {{-- <li class="nav-item"><a class="nav-link" href="{{ url('nos-documents') }}"><i
+                        class="ti-control-record"></i>Les documents</a>
+                    </li> --}}
                     {{-- <li class="nav-item"><a class="nav-link" href="apps-contact-list.html"><i
                                 class="ti-control-record"></i>Contact List</a></li>
                     <li class="nav-item"><a class="nav-link" href="apps-calendar.html"><i

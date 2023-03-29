@@ -13,12 +13,13 @@
                     </ol>
                 </div>
                 <!--end col-->
-                <div class="col-auto align-self-center"><a href="#" class="btn btn-sm btn-outline-primary"
+                {{-- <div class="col-auto align-self-center"><a href="#" class="btn btn-sm btn-outline-primary"
                         id="Dash_Date"><span class="day-name" id="Day_Name">Today:</span>&nbsp; <span class=""
                             id="Select_date">Jan
                             11</span> <i data-feather="calendar" class="align-self-center icon-xs ml-1"></i> </a><a
                         href="#" class="btn btn-sm btn-outline-primary"><i data-feather="download"
-                            class="align-self-center icon-xs"></i></a></div>
+                            class="align-self-center icon-xs"></i></a>
+                </div> --}}
                 <!--end col-->
             </div>
             <!--end row-->
@@ -60,7 +61,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-body"><button type="button" class="btn btn-outline-primary" data-toggle="modal"
-                        data-target="#exampleModalLogin">Créer une commission</button>
+                        data-target="#exampleModalLogin">Ajouter une commission</button>
                     <!--modal-->
                     <div class="modal fade" id="exampleModalLogin" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalDefaultLogin" aria-hidden="true">
@@ -71,7 +72,7 @@
                                     <div class="card-body p-0 auth-header-box">
                                         <div class="text-center p-3">
                                             <h4 style="color: #1761fd" class="mt-3 mb-1 font-weight-semibold font-18">
-                                                Créer une commission !</h4>
+                                                Ajouter une commission !</h4>
                                         </div>
                                     </div>
 
@@ -83,7 +84,7 @@
 
                                                 <!--end form-group-->
                                                 <div class="form-group mb-2">
-                                                    <label for="nom_commission">Nom commission : </label>
+                                                    <label for="nom_commission">Nom de la commission : </label>
                                                     <div class="input-group mb-3"><input type="text"
                                                             class="form-control" name="nom_commission"
                                                             id="nom_commission"
@@ -98,7 +99,7 @@
 
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <div class="form-group"><label for="description_commission">Description commission: </label>
+                                                        <div class="form-group"><label for="description_commission">Description de la commission: </label>
                                                             <textarea class="form-control summernote" rows="5" id="summernote"
                                                                 name="description_commission" placeholder="">
                                                             </textarea>
@@ -113,7 +114,7 @@
                                         <div class="form-group mb-0 row">
                                             <div class="col-12 mt-2"><button
                                                     class="btn btn-primary btn-block waves-effect waves-light"
-                                                    type="submit">Créer<i class="fas fa-sign-in-alt ml-1"></i></button>
+                                                    type="submit">Ajouter<i class="fas fa-sign-in-alt ml-1"></i></button>
                                             </div>
                                             <!--end col-->
                                         </div>
@@ -142,12 +143,12 @@
                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
-                            <th scope="col">ID</th>
+                            <th scope="col">Nº</th>
+                            <th>Code</th>
                             <th>Commissions</th>
-                            <th>Code commission</th>
-                            <th>Auteurs commission</th>
-                            <th>Documents commission</th>
-                            <th>Status</th>
+                            <th>Utilisateurs</th>
+                            <th>Documents</th>
+                            <th>Statuts</th>
                             <th>Date de création</th>
                             <th style="max-width: 170px !important">Action</th>
                         </tr>
@@ -157,8 +158,8 @@
                         @foreach($commissions as $commission) 
                         <tr>
                             <td scope="col">{{ $commission->id }}</td>
-                            <td>{{ $commission->nom_commission}}</td>
                             <td>{{ $commission->code_commission }}</td>
+                            <td>{{ $commission->nom_commission}}</td>
                             <td>{{ $commission->user->name ?? '' }}</td>
                             <td>
                                 @if($commission->document->count() > 0)
@@ -178,7 +179,6 @@
 
                                 @if (!is_null($commission->etat))
                                 <span class="badge badge-success fs-8 fw-bolder">{{$commission->etat = 'Terminé'}}</span> --}}
-
                             </td>
 
                             <td>{{ $commission->created_at }}</td>
@@ -198,8 +198,8 @@
                                     </a>
 
                                     <a class="btn btn-sm btn-soft-secondary btn-circle mr-2" href="#!"
-                                        data-target="#modalview_{{ $commission->id }}" data-toggle="modal">
-                                        <i class="fa fa-eye" title="Consulter les détails"></i>
+                                        data-target="#modaldstatuts_{{ $commission->id }}" data-toggle="modal">
+                                        <i class="fa fa-eye" title="Mettre à jour le statut"></i>
                                     </a>
 
                                     {{-- <a class="btn btn-sm btn-soft-success btn-circle mr-2" href="#!"
@@ -261,9 +261,7 @@
                                                 </div>
                                                 <!--end form-group-->
 
-                                                
-
-                                                <div class="form-group mb-2"><label for="etat">Status:</label>
+                                                {{-- <div class="form-group mb-2"><label for="etat">Status:</label>
                                                     {{ (old('marque')) }}
                                                     <select class="form-select form-control" name="etat"
                                                         id="etat" required>
@@ -278,7 +276,7 @@
                                                             @endforeach
                                                         @endif
                                                     </select>
-                                                </div> <br>
+                                                </div> <br> --}}
 
                                                 <div class="row">
                                                     <div class="col-md-12">
@@ -334,7 +332,7 @@
                         <div class="modal-body">
                             <div class="card-body p-0 auth-header-box">
                                 <div class="text-center p-3">
-                                    <h4 style="color: red;" class="mt-3 mb-1 font-weight-semibold font-18">
+                                    <h4 style="color: #1761fd;" class="mt-3 mb-1 font-weight-semibold font-18">
                                         Ajouter un document à la commission !</h4>
                                 </div>
                             </div>
@@ -431,7 +429,7 @@
         @endforeach
     @endif
 </section>
-
+{{-- 
 <section>
     <!--modal ajout de document pour chaque commission-->
     @if(!is_null($commissions))
@@ -468,7 +466,6 @@
                                         <h3 class="pro-title">Auteur: {{ $commission->user->name ?? '' }}</h3>
                                         <p class="text-muted mb-0">{!!$commission->description_commission!!}</p>
                                         
-                                        
                                     </div>
                                 </div>
                                 <!--end col-->
@@ -496,8 +493,9 @@
             </div>
         @endforeach
     @endif
-</section>
-{{-- <section>
+</section> --}}
+
+<section>
     <!--modal ajout de document pour chaque commission-->
     @if(!is_null($commissions))
         @foreach($commissions as $commission)
@@ -509,33 +507,37 @@
                         <div class="modal-body">
                             <div class="card-body p-0 auth-header-box">
                                 <div class="text-center p-3">
-                                    <h4 style="color: red;" class="mt-3 mb-1 font-weight-semibold font-18">
-                                        Choisir le status de la commission !</h4>
+                                    <h4 style="color: #1761fd;" class="mt-3 mb-1 font-weight-semibold font-18">
+                                        Choisir le statut de la commission !</h4>
                                 </div>
                             </div>
                             <div class="tab-content">
                                 <div class="tab-pane active p-3 pt-3" id="LogIn_Tab" role="tabpanel">
                                     <form class="form-horizontal auth-form my-4" method="POST" 
-                                        action="{{ route('etat.commission')}}"
+                                        action="{{ route('update.etat', $commission->id) }}"
                                         enctype="multipart/form-data">
                                         @csrf
+
+                                        @method('PUT')
+                                        <input type="hidden" name="_method" value="put">
                                         <!--end form-group-->
-                                       <div class="form-group mb-2"><label for="etat_id">Status:</label>
-                                                    {{ (old('etat_id')) }}
-                                                    <select class="form-select form-control" name="etat_id"
-                                                        id="etat_id" required>
-                                                        <option value="Choisir le status">Veuillez Choisir le status
-                                                        </option>
-                                                        @if(!is_null($etats))
-                                                            @foreach($etats as $etat)
-                                                                <option value="{{ $etat->id }}"
-                                                                    {{ !is_null(old("etat_id")) ? 'selected' : '' }}>
-                                                                    {{ Str::ucfirst($etat->status) }}
-                                                                </option>
-                                                            @endforeach
-                                                        @endif
-                                                    </select>
-                                        </div>
+                                        
+                                        <div class="form-group mb-2"><label for="etat">Sélectionnez le statut:</label>
+                                            {{ (old('etat')) }}
+                                            <select class="form-select form-control" name="etat"
+                                                id="etat">
+                                                <option value="Choisir le status">Veuillez Choisir le statut
+                                                </option>
+                                                @if(!is_null($etats))
+                                                    @foreach($etats as $etat)
+                                                        <option value="{{  $etat->id }}" 
+                                                            @if((int) $commission->etat == (int)$etat->id) selected
+                                                            @endif>{{ $etat->status }}
+                                                            </option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                        </div> <br>
                                         <!--end form-group-->
                                             <div class="form-group mb-2">
                                                 <label for="commission_id"></label>
@@ -551,8 +553,8 @@
                                         <div class="form-group mb-0 row">
                                             <div class="col-12 mt-2">
                                                 <button class="btn btn-primary btn-block waves-effect waves-light"
-                                                    type="submit" style="color: #ffff">Enregistrer<i
-                                                        class="fas fa-plus  ml-1"></i>
+                                                    type="submit" style="color: #ffff">Mettre à jour <i
+                                                        class="fas fa-plus ml-1" aria-hidden="true"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -575,7 +577,5 @@
             </div>
         @endforeach
     @endif
-</section> --}}
-
-
+</section>
 @endsection

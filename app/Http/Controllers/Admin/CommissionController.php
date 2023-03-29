@@ -55,11 +55,11 @@ class CommissionController extends Controller
         $request->validate([
             "nom_commission" => "required",
             "description_commission" => "required",
-            "etat" => "required",
+            // "etat" => "required",
         ]);
         if (!is_null($request->commissions)) {
             $commissions->nom_commission = $request->nom_commission;
-            $commissions->etat = $request->etat;
+            // $commissions->etat = $request->etat;
             $commissions->description_commission = $request->description_commission;
             $commissions->save();
         }
@@ -176,22 +176,32 @@ class CommissionController extends Controller
         return back()->with("success", "Status est Supprimé avec succès !");
     }
 
-    //etat commission
-    public function status_commission(Request $request)
-    {
+    public function update_etat(Request $request, Commission $commissions){
         //dd($request->all());
         $request->validate([
-            "etat_id" => "required",
-            "commission_id" => "required"
+            'etat' => 'required',
         ]);
-        $commi_etat= new EtatCommission();
-        //dd($commi_etat);
-        $commi_etat->commission_id = $request->commission_id;
-        $commi_etat->etat_id = $request->etat_id;
-        $commi_etat->save();
-        return redirect()
-        ->back()->with('success','Félicitations ! Vous avez enregistré le status avec succès ');
+        $commissions->etat = $request->etat;
+        $commissions->save();
+        return back()->with("success", "Statut est mis jour avec succès !");
     }
+
+    //etat commission
+    // public function status_commission(Request $request)
+    // {
+    //     //dd($request->all());
+    //     $request->validate([
+    //         "etat_id" => "required",
+    //         "commission_id" => "required"
+    //     ]);
+    //     $commi_etat= new EtatCommission();
+    //     //dd($commi_etat);
+    //     $commi_etat->commission_id = $request->commission_id;
+    //     $commi_etat->etat_id = $request->etat_id;
+    //     $commi_etat->save();
+    //     return redirect()
+    //     ->back()->with('success','Félicitations ! Vous avez enregistré le status avec succès ');
+    // }
 
 
     
