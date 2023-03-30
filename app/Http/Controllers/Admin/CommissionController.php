@@ -44,7 +44,7 @@ class CommissionController extends Controller
         //$commissions->date_creation = $request->date_creation->Carbon::now();
         $commissions->description_commission = $request->description_commission;
         $commissions->code_commission = rand(00001, 99999);
-        $commissions->code_commission = Str::slug(Auth::user()->name.'-'.rand(00001, 99999));
+        $commissions->code_commission = Str::slug($commissions->nom_commission.'-'.rand(00001, 99999));
         $commissions->save();
         return redirect()->back()->with('success', 'Félicitations! Vous avez enregistré la commission avec succès ');
     }
@@ -133,12 +133,16 @@ class CommissionController extends Controller
                         'commission_id' => $request->commission_id,
                         'libelle' => $filename,
                         ]);
-                    
                 }
-                // $documents->save();
         }
            return redirect()->back()
            ->with('success', 'Félicitations ! Vous avez ajouté le document avec succès ');
+    }
+
+    //liste de tous les documents
+    public function all_docs(){
+        $documents = Document::orderBy('libelle','ASC')->get();
+        return view('admin.commission.docs', compact('documents'));
     }
 
      //gestion de satus
@@ -175,34 +179,15 @@ class CommissionController extends Controller
         $etat->delete();
         return back()->with("success", "Status est Supprimé avec succès !");
     }
-
-    public function update_etat(Request $request, Commission $commissions){
-        //dd($request->all());
-        $request->validate([
-            'etat' => 'required',
-        ]);
-        $commissions->etat = $request->etat;
-        $commissions->save();
-        return back()->with("success", "Statut est mis jour avec succès !");
-    }
-
-    //etat commission
-    // public function status_commission(Request $request)
-    // {
+    // public function update_etat(Request $request, Commission $commissions){
     //     //dd($request->all());
     //     $request->validate([
-    //         "etat_id" => "required",
-    //         "commission_id" => "required"
+    //         'etat' => 'required',
     //     ]);
-    //     $commi_etat= new EtatCommission();
-    //     //dd($commi_etat);
-    //     $commi_etat->commission_id = $request->commission_id;
-    //     $commi_etat->etat_id = $request->etat_id;
-    //     $commi_etat->save();
-    //     return redirect()
-    //     ->back()->with('success','Félicitations ! Vous avez enregistré le status avec succès ');
+    //     $commissions->etat = $request->etat;
+    //     $commissions->save();
+    //     return back()->with("success", "Statut est mis jour avec succès !");
     // }
-
 
     
 }

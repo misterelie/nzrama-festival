@@ -12,15 +12,6 @@
                         <li class="breadcrumb-item active">Commissions</li>
                     </ol>
                 </div>
-                <!--end col-->
-                {{-- <div class="col-auto align-self-center"><a href="#" class="btn btn-sm btn-outline-primary"
-                        id="Dash_Date"><span class="day-name" id="Day_Name">Today:</span>&nbsp; <span class=""
-                            id="Select_date">Jan
-                            11</span> <i data-feather="calendar" class="align-self-center icon-xs ml-1"></i> </a><a
-                        href="#" class="btn btn-sm btn-outline-primary"><i data-feather="download"
-                            class="align-self-center icon-xs"></i></a>
-                </div> --}}
-                <!--end col-->
             </div>
             <!--end row-->
         </div>
@@ -148,7 +139,6 @@
                             <th>Commissions</th>
                             <th>Utilisateurs</th>
                             <th>Documents</th>
-                            <th>Statuts</th>
                             <th>Date de création</th>
                             <th style="max-width: 170px !important">Action</th>
                         </tr>
@@ -162,7 +152,7 @@
                             <td>{{ $commission->nom_commission}}</td>
                             <td>{{ $commission->user->name ?? '' }}</td>
                             <td>
-                                @if($commission->document->count() > 0)
+                                @if($commission->document->count())
                                     @foreach ($commission->document as $item)
                                         <a href="{{ asset('FichierCommission/'.$item->libelle )}}" target="_blank" rel="noopener noreferrer">
                                             <img src="{{ asset('assets/pdf.png') }}" target-="" title="{{ $item->libelle }}" alt="{{ $item->libelle }}" width="30">
@@ -170,16 +160,9 @@
                                     @endforeach
                                 @endif
                             </td>
-                            <td>
+                            {{-- <td>
                                 <span class="badge {{$commission->etatStatus($commission->etat)->etat_color}} fs-8 fw-bolder">{{$commission->etatStatus($commission->etat)->status}}</span>
-
-                                {{-- @if (!is_null($commission->etat))
-                                 <span class="badge badge-danger fs-8 fw-bolder">{{$commission->etat = 'En cours'}}</span>
-                                @endif
-
-                                @if (!is_null($commission->etat))
-                                <span class="badge badge-success fs-8 fw-bolder">{{$commission->etat = 'Terminé'}}</span> --}}
-                            </td>
+                            </td> --}}
 
                             <td>{{ $commission->created_at }}</td>
                             <td>
@@ -201,12 +184,6 @@
                                         data-target="#modaldstatuts_{{ $commission->id }}" data-toggle="modal">
                                         <i class="fa fa-eye" title="Mettre à jour le statut"></i>
                                     </a>
-
-                                    {{-- <a class="btn btn-sm btn-soft-success btn-circle mr-2" href="#!"
-                                    data-target="#modaldstatuts_{{ $commission->id }}" data-toggle="modal">
-                                    <i class="fa fa-check" aria-hidden="true" 
-                                      title="Choisir le status de la commission"></i>
-                                    </a> --}}
 
                                     <button class="btn btn-sm btn-soft-danger btn-circle mr-2" href=""><i
                                             class="dripicons-trash" title="Supprimer la commission" aria-hidden="true"></i>
@@ -495,7 +472,7 @@
     @endif
 </section> --}}
 
-<section>
+{{-- <section>
     <!--modal ajout de document pour chaque commission-->
     @if(!is_null($commissions))
         @foreach($commissions as $commission)
@@ -522,7 +499,8 @@
                                         <input type="hidden" name="_method" value="put">
                                         <!--end form-group-->
                                         
-                                        <div class="form-group mb-2"><label for="etat">Sélectionnez le statut:</label>
+                                        <div class="form-group mb-2"><label for="etat">
+                                            Sélectionnez le statut:</label>
                                             {{ (old('etat')) }}
                                             <select class="form-select form-control" name="etat"
                                                 id="etat">
@@ -577,5 +555,5 @@
             </div>
         @endforeach
     @endif
-</section>
+</section> --}}
 @endsection

@@ -10,12 +10,13 @@ class TypeDocument extends Model
     use HasFactory;
     protected $table = "type_documents";
     protected $guarded = ['id'];
+    protected $fillable = ["libelle", "user_id"];
 
     public function user(){
         return $this->belongsTo(User::class, "user_id");
     }
 
     public function document(){
-        return $this->belongsTo(Document::class);
+        return $this->hasMany(Document::class);
     }
 }

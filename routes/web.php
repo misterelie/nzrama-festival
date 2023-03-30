@@ -39,6 +39,9 @@ Route::get('/type-document', [AdminCommissionController::class, 'typedoc'])->nam
 Route::post('/store.typedocument', [AdminCommissionController::class, 'store_typedoc'])->name('store.typedocument');
 Route::put('/update/typedocument/{typedocument}', [AdminCommissionController ::class, 'update_typedocument']);
 Route::delete('/supprime/typedocument/{typedocument}', [AdminCommissionController ::class, 'destroy_typedoc']);
+
+// les documents des commissions
+Route::get('/all.documents', [AdminCommissionController::class, 'all_docs'])->name('all.documents');
 Route::post('/save/documents', [AdminCommissionController::class, 'store_document'])->name('save.documents');
 
 //section commission
@@ -46,7 +49,7 @@ Route::get('/nos-commssions', [AdminCommissionController::class, 'add_commission
 Route::post('/store/commission', [AdminCommissionController::class, 'save_commission']);
 Route::put('/update/commission/{commissions}', [AdminCommissionController ::class, 'update']);
 Route::delete('/supprime/commission/{commissions}', [AdminCommissionController ::class, 'destroy']);
-Route::put('/update.etat/{commissions}', [AdminCommissionController ::class, 'update_etat'])->name('update.etat'); 
+// Route::put('/update.etat/{commissions}', [AdminCommissionController ::class, 'update_etat'])->name('update.etat'); 
 
 //section status
 Route::get('/etat/stauts', [AdminCommissionController::class, 'add_status']);
@@ -62,8 +65,14 @@ Route::post('store/users', [UsersUserController::class, 'save_user']);
 Route::put('/utilisateur.update/{utilisateur}', [UsersUserController::class, 'update_user'])->name('utilisateur.update');
 Route::delete('/delete.user/{utilisateur}', [UsersUserController::class, 'delete_user'])->name('delete.user');
 
-//SECTION MEMBRES
+//SECTION CATEGORIES
 Route::get('/categorie-membre', [AdminMembresController::class, 'add_categorie'])->name('categorie.membre');
 Route::post('/store.categorie_membre', [AdminMembresController::class, 'save_categorie_membre'])->name('store.categorie_membre');
 Route::put('/update.categorie_membre/{categoriemembre}', [AdminMembresController::class, 'update_categorie_membre'])->name('update.categorie_membre');
 Route::delete('/delete.categorie/{categoriemembre}', [AdminMembresController::class, 'destroy_categorie'])->name('delete.categorie');
+
+//SECTION MEMBRE
+Route::get('/liste_membres',[AdminMembresController::class, 'membres'])->name('liste_membres');
+Route::post('/save_membres', [AdminMembresController::class, 'store_membre'])->name('save_membres');
+Route::put('/update.membre/{membre}', [AdminMembresController::class, 'update_membre'])->name('update.membre');
+Route::delete('/supprime_membre/{membre}', [AdminMembresController::class, 'destroy_membre'])->name('supprime_membre');

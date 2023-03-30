@@ -26,4 +26,8 @@ class Commission extends Model
         return $etat;
     }
 
+    public function membre(){
+        return $this->hasMany(Membre::class);
+    }
+
 } 

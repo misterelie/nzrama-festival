@@ -28,7 +28,8 @@
                 </ul>
             </li> --}}
 
-            <li><a href="javascript: void(0);"><i data-feather="grid"
+            <li><a href="javascript: void(0);">
+                <i data-feather="grid"
                         class="align-self-center menu-icon"></i><span>GESTION COMMISSIONS</span><span class="menu-arrow"><i
                             class="mdi mdi-chevron-right"></i></span></a>
                 <ul class="nav-second-level" aria-expanded="false">
@@ -43,9 +44,9 @@
                     <li class="nav-item"><a class="nav-link" href="{{ url('nos-commssions') }}"><i
                                 class="ti-control-record"></i>Les commissions</a>
                     </li>
-                    {{-- <li class="nav-item"><a class="nav-link" href="{{ url('nos-documents') }}"><i
+                    <li class="nav-item"><a class="nav-link" href="{{ route('all.documents') }}"><i
                         class="ti-control-record"></i>Les documents</a>
-                    </li> --}}
+                    </li>
                     {{-- <li class="nav-item"><a class="nav-link" href="apps-contact-list.html"><i
                                 class="ti-control-record"></i>Contact List</a></li>
                     <li class="nav-item"><a class="nav-link" href="apps-calendar.html"><i
@@ -80,21 +81,16 @@
                 </ul>
             </li>
 
-            {{-- <li><a href="javascript: void(0);"><i 
+            <li><a href="javascript: void(0);"><i 
                 class="fa fa-users align-self-center menu-icon" aria-hidden="true"></i><span>
-                    GESTION ATTRIBUTIONS</span><span class="menu-arrow"><i
+                    GESTION MEMBRES</span><span class="menu-arrow"><i
                     class="mdi mdi-chevron-right"></i></span></a>
                 <ul class="nav-second-level" aria-expanded="false">
-                    <li><a href="javascript: void(0);"><i class="ti-control-record"></i>Email <span
-                                class="menu-arrow left-has-menu"><i class="mdi mdi-chevron-right"></i></span></a>
-                        <ul class="nav-second-level" aria-expanded="false">
-                            <li><a href="apps-email-inbox.html">Inbox</a></li>
-                            <li><a href="apps-email-read.html">Read Email</a></li>
-                        </ul>
+                  
+                    <li class="nav-item"><a class="nav-link" href="{{ route('liste_membres') }}"><i
+                                class="ti-control-record"></i>Les membres</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="apps-chat.html"><i
-                                class="ti-control-record"></i>Chat</a></li>
-                    <li class="nav-item"><a class="nav-link" href="apps-contact-list.html"><i
+                    {{-- <li class="nav-item"><a class="nav-link" href="apps-contact-list.html"><i
                                 class="ti-control-record"></i>Contact List</a></li>
                     <li class="nav-item"><a class="nav-link" href="apps-calendar.html"><i
                                 class="ti-control-record"></i>Calendar</a></li>
@@ -103,77 +99,9 @@
                     <li class="nav-item"><a class="nav-link" href="apps-invoice.html"><i
                                 class="ti-control-record"></i>Invoice</a></li>
                     <li class="nav-item"><a class="nav-link" href="apps-tasks.html"><i
-                                class="ti-control-record"></i>Tasks</a></li>
-                    <li><a href="javascript: void(0);"><i class="ti-control-record"></i>Projects <span
-                                class="menu-arrow left-has-menu"><i class="mdi mdi-chevron-right"></i></span></a>
-                        <ul class="nav-second-level" aria-expanded="false">
-                            <li><a href="apps-project-overview.html">Overview</a></li>
-                            <li><a href="apps-project-projects.html">Projects</a></li>
-                            <li><a href="apps-project-board.html">Board</a></li>
-                            <li><a href="apps-project-teams.html">Teams</a></li>
-                            <li><a href="apps-project-files.html">Files</a></li>
-                            <li><a href="apps-new-project.html">New Project</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="javascript: void(0);"><i class="ti-control-record"></i>Ecommerce <span
-                                class="menu-arrow left-has-menu"><i class="mdi mdi-chevron-right"></i></span></a>
-                        <ul class="nav-second-level" aria-expanded="false">
-                            <li><a href="apps-ecommerce-products.html">Products</a></li>
-                            <li><a href="apps-ecommerce-product-list.html">Product List</a></li>
-                            <li><a href="apps-ecommerce-product-detail.html">Product Detail</a></li>
-                            <li><a href="apps-ecommerce-cart.html">Cart</a></li>
-                            <li><a href="apps-ecommerce-checkout.html">Checkout</a></li>
-                        </ul>
-                    </li>
+                                class="ti-control-record"></i>Tasks</a></li> --}}
                 </ul>
-            </li> --}}
-
-            {{-- <li><a href="javascript: void(0);"><i 
-                class="fa fa-tasks align-self-center menu-icon" aria-hidden="true"></i><span>GESTION TACHES</span><span class="menu-arrow"><i
-                    class="mdi mdi-chevron-right"></i></span></a>
-                <ul class="nav-second-level" aria-expanded="false">
-                    <li><a href="javascript: void(0);"><i class="ti-control-record"></i>Email <span
-                                class="menu-arrow left-has-menu"><i class="mdi mdi-chevron-right"></i></span></a>
-                        <ul class="nav-second-level" aria-expanded="false">
-                            <li><a href="apps-email-inbox.html">Inbox</a></li>
-                            <li><a href="apps-email-read.html">Read Email</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="apps-chat.html"><i
-                                class="ti-control-record"></i>Chat</a></li>
-                    <li class="nav-item"><a class="nav-link" href="apps-contact-list.html"><i
-                                class="ti-control-record"></i>Contact List</a></li>
-                    <li class="nav-item"><a class="nav-link" href="apps-calendar.html"><i
-                                class="ti-control-record"></i>Calendar</a></li>
-                    <li class="nav-item"><a class="nav-link" href="apps-files.html"><i
-                                class="ti-control-record"></i>File Manager</a></li>
-                    <li class="nav-item"><a class="nav-link" href="apps-invoice.html"><i
-                                class="ti-control-record"></i>Invoice</a></li>
-                    <li class="nav-item"><a class="nav-link" href="apps-tasks.html"><i
-                                class="ti-control-record"></i>Tasks</a></li>
-                    <li><a href="javascript: void(0);"><i class="ti-control-record"></i>Projects <span
-                                class="menu-arrow left-has-menu"><i class="mdi mdi-chevron-right"></i></span></a>
-                        <ul class="nav-second-level" aria-expanded="false">
-                            <li><a href="apps-project-overview.html">Overview</a></li>
-                            <li><a href="apps-project-projects.html">Projects</a></li>
-                            <li><a href="apps-project-board.html">Board</a></li>
-                            <li><a href="apps-project-teams.html">Teams</a></li>
-                            <li><a href="apps-project-files.html">Files</a></li>
-                            <li><a href="apps-new-project.html">New Project</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="javascript: void(0);"><i class="ti-control-record"></i>Ecommerce <span
-                                class="menu-arrow left-has-menu"><i class="mdi mdi-chevron-right"></i></span></a>
-                        <ul class="nav-second-level" aria-expanded="false">
-                            <li><a href="apps-ecommerce-products.html">Products</a></li>
-                            <li><a href="apps-ecommerce-product-list.html">Product List</a></li>
-                            <li><a href="apps-ecommerce-product-detail.html">Product Detail</a></li>
-                            <li><a href="apps-ecommerce-cart.html">Cart</a></li>
-                            <li><a href="apps-ecommerce-checkout.html">Checkout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li> --}}
+            </li> 
 
             <li><a href="javascript: void(0);"><i data-feather="users"
                         class="align-self-center menu-icon"></i><span>GESTION UTILISATEURS</span><span
