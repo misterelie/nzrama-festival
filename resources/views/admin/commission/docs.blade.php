@@ -123,34 +123,58 @@
                     <thead>
                         <tr>
                             <th scope="col">Nº</th>
-                            <th>Nom du fichier</th>
-                            <th>Type documents</th>
-                            <th>Commissions</th>
+                            <th>Nom fichier</th>
+                            <th>Type de fichiers</th>
+                            <th>Libelle</th>
                             <th>Fichiers</th>
                             <th>Date de création</th>
                             <th style="max-width: 120px !important">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if(!is_null($documents))
-                        @foreach($documents as $document)
+                        @if(!is_null($commissions))
+                        @foreach($commissions as $commission)
                         <tr>
-                            <td scope="col">{{ $document->id}}</td>
-                            <td>{{ $document->nom_fichier}}</td>
-                            <td>{{ $document->TypeDocument->libelle ?? ''}}</td>
-                            <td>{{ $document->commission->nom_commission ?? ''}}</td>
-                        
+                            <td scope="col">{{ $commission->id}}</td>
                             <td>
-                                @if(!is_null($document->libelle))
-                                    <a href="{{ asset('FichierCommission/'.$document->libelle) }}"
+                                @if($commission->document->count())
+                                 @foreach($commission->document as $document)
+                                 {{ $document->nom_fichier ?? '' }} <br>
+                                 @endforeach
+                                 @endif
+                             </td>
+
+                             <td>
+                                @if($commission->document->count())
+                                 @foreach($commission->document as $document)
+                                 {{ $document->typedocument->libelle ?? '' }} <br>
+                                 @endforeach
+                                 @endif
+                             </td>
+
+                            <td>
+                               @if($commission->document)
+                                @foreach($commission->document as $document)
+                                {{ $document->libelle ?? '' }} <br>
+                                @endforeach
+                                @endif
+                            </td>
+                            <td>
+                                @if($commission->document)
+                                @foreach($commission->document as $doc)
+                                 @if(!is_null($doc->libelle))
+                                    <a href="{{ asset('FichierCommission/'.$doc->libelle) }}"
                                         target="_blank" rel="noopener noreferrer">
                                         <img src="{{ asset('assets/pdf.png') }}" target-="" 
-                                        alt="{{$document->libelle}}" 
-                                        title="{{$document->libelle}},  Télécharger" width="25">
+                                        alt="{{$doc->libelle}}" 
+                                        title="{{$doc->libelle}},  Télécharger" width="25">
                                     </a>
                                 @endif
+                                @endforeach
+                                @endif
+
                            </td>
-                            <td>{{ $document->created_at}}</td>
+                            <td>{{ $commission->created_at}}</td>
                             <td>
                                 <form
                                     action="#" method="POST" enctype="multipart/form-data">

@@ -564,8 +564,6 @@
                                         <p class="text-muted mb-0">Spécificité: {{$membre->specicite_fonction_membre}}</p>
                                         <p class="text-muted mb-0">Numéro whatsapp: {{$membre->num_whatsapp}}</p>
                                         <p class="text-muted mb-0">Utilisateurs:  {{$membre->user->name ?? ''}}</p>
-                                       
-                                       
                                     </div>
                                 </div>
                                 <!--end col-->

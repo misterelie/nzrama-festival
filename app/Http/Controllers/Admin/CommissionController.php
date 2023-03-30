@@ -139,10 +139,11 @@ class CommissionController extends Controller
            ->with('success', 'Félicitations ! Vous avez ajouté le document avec succès ');
     }
 
-    //liste de tous les documents
+    //liste de tous les documents commissions
     public function all_docs(){
-        $documents = Document::orderBy('libelle','ASC')->get();
-        return view('admin.commission.docs', compact('documents'));
+        // $commissions = Document::all();
+        $commissions = Commission::orderBy('created_at', 'ASC')->has('document')->get();
+        return view('admin.commission.docs', compact('commissions'));
     }
 
      //gestion de satus

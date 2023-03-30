@@ -21,6 +21,6 @@ class Document extends Model
 
     public function commission()
     {
-       return $this->belongsTo(Commission::class, "commission_id", "id");
+       return $this->belongsTo(Commission::class, "commission_id");
     }
 }

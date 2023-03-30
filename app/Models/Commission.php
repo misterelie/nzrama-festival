@@ -10,7 +10,7 @@ class Commission extends Model
     use HasFactory;
     protected $table = "commissions";
     protected $guarded = ['id'];
-    protected $fillable = ["nom_commission", "description_commission", "user_id",  "document_id", "etat"];
+    protected $fillable = ["nom_commission", "description_commission", "user_id", "etat"];
 
 
     public function user(){
@@ -18,7 +18,7 @@ class Commission extends Model
     }
 
     public function document(){
-        return $this->hasMany(Document::class);
+        return $this->hasMany(Document::class, "commission_id");
     }
 
     public function etatStatus($etatId){
