@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('commissions', function (Blueprint $table) {
             $table->id();
             $table->string('nom_commission', 50);
-            $table->longText('description_commission');
             $table->foreignId('user_id')->nullable();
+            $table->longText('description_commission')->nullable();
             $table->dateTime('date_creation')->nullable();
             $table->string('code_commission', 150)->nullable();
             $table->timestamps();

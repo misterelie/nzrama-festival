@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Categorie;
 use App\Models\Commission;
 use App\Models\Membre;
+use App\Models\Attribution;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,8 @@ class MembresController extends Controller
     //SECTION CATEGORIE MEMBRE
     public function add_categorie(){
         $data['categoriemembres'] = Categorie::orderBy('libelle_categorie','ASC')->get();
-        return view('admin.categories.categorie_membre')->with($data);
+        $attributions = Attribution::all();
+        return view('admin.categories.categorie_membre', compact('attributions'))->with($data);
     }
     public function save_categorie_membre(Request $request){
         $request->validate([
@@ -53,21 +55,34 @@ class MembresController extends Controller
 
      //SECTION MEMBRE
      public function membres(){
-        $membres = Membre::orderBy('id', 'ASC')->get();
+    
+        $membres= Membre::orderBy('created_at', 'DESC')->get();
+        // foreach($membres as $membre){
+        //     if($membre->commission->attribution){
+        //         foreach($membre->commission->attribution as $attribution){
+        //             //dd($attribution->tache);
+        //           if($attribution->tache)
+        //           foreach($attribution->tache as $tache){
+        //                 //dd($tache);
+        //           }
+        //         }
+        //     };
+        // }
         $categoriemembres = Categorie::all();
         $commissions = Commission::all();
-        return view('admin.membres.add_membre', compact('categoriemembres', 'commissions', 'membres'));
+        $attributions = Attribution::all();
+        return view('admin.membres.add_membre', compact('categoriemembres', 'commissions', 'attributions', 'membres'));
      }
 
      public function store_membre(Request $request){
         //dd($request->all());
         $request->validate([
+            "civilite" => "required",
             "nom_membre" => "required",
             "prenoms" => "required",
-            "fonction" => "required",
             "specicite_fonction_membre" => "required",
             "telephone" => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|max:10',
-            "num_whatsapp" => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|max:10',
+            "num_whatsapp" => 'nullable|regex:/^([0-9\s\-\+\(\)]*)$/|max:10',
             'email' => 'required',
             "categorie_id" => "required", 
             "commission_id" => "required"
@@ -87,9 +102,9 @@ class MembresController extends Controller
 
             $membres = new Membre();
             $membres->user_id = Auth::user()->id;
+            $membres->civilite = $request->civilite;
             $membres->nom_membre = $request->nom_membre;
             $membres->prenoms = $request->prenoms;
-            $membres->fonction = $request->fonction;
             $membres->specicite_fonction_membre = $request->specicite_fonction_membre;
             $membres->telephone = $request->telephone;
             $membres->email = $request->email;
@@ -97,7 +112,8 @@ class MembresController extends Controller
             $membres->categorie_id = $request->categorie_id;
             $membres->commission_id = $request->commission_id;
             $membres->code_membre = rand(00001, 99999);
-            $membres->code_membre = Str::slug($membres->categorie_id.'-'.rand(00001, 99999));
+            // $membres->code_membre = Str::slug($membres->categorie_id.'-'.rand(00001, 99999));
+            $membres->code_membre = Str::slug(mb_strtoupper('MEM').'-'.rand(00001, 99999));
             $membres->save();
             return redirect()->back()->with('success', 'Félicitations! Vous avez ajouté avec succès');
          }
@@ -108,19 +124,20 @@ class MembresController extends Controller
       public function update_membre(Request $request, Membre $membre){
         //dd($request->all());
         $request->validate([
+            "civilite" => "required",
             "nom_membre" => "required",
             "prenoms" => "required",
-            "fonction" => "required",
             "specicite_fonction_membre" => "nullable",
             "telephone" => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|max:10',
-            "num_whatsapp" => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|max:10',
+            "num_whatsapp" => 'nullable|regex:/^([0-9\s\-\+\(\)]*)$/|max:10',
             'email' => 'required',
             "categorie_id" => "required", 
             "commission_id" => "required"
         ]);
+
+        $membre->civilite = $request->civilite;
         $membre->nom_membre = $request->nom_membre;
         $membre->prenoms = $request->prenoms;
-        $membre->fonction = $request->fonction;
         $membre->specicite_fonction_membre = $request->specicite_fonction_membre;
         $membre->telephone = $request->telephone;
         $membre->email = $request->email;

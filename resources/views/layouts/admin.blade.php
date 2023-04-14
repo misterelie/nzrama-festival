@@ -33,12 +33,12 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Administration | Planning N'zrama Festival</title>
+    <title>TABLEAU DE BORD | PLANNING N'ZRAMA FESTIVAL</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description">
     <meta content="" name="author">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"><!-- App favicon -->
-    <link rel="shortcut icon" href="{{asset('admin/assets/images/logo-nzrama.png')}}">
+    <link rel="shortcut icon" href="{{asset('assets/favicon.png')}}">
     <link href="{{ asset('admin/plugins/datatables/dataTables.bootstrap4.min.css') }}"
         rel="stylesheet" type="text/css">
     <link href="{{ asset('admin/plugins/datatables/buttons.bootstrap4.min.css') }}"

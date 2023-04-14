@@ -140,7 +140,7 @@
                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
-                            <th scope="col">ID</th>
+                            <th scope="col">Nº</th>
                             <th>Statuts</th>
                             <th>Couleurs</th>
                             <th style="max-width: 100px !important">Action</th>

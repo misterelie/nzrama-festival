@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="utf-8">
-    <title>ADMINISTRATION | PLANNING N'ZRAMA FESTIVAL</title>
+    <title>TABLEAU DE BORD | PLANNING N'ZRAMA FESTIVAL</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description">
     <meta content="" name="author">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"><!-- App favicon -->
-    <link rel="shortcut icon" href="{{asset('admin/assets/images/logo-nzrama.png')}}"><!-- jvectormap -->
+    <link rel="shortcut icon" href="{{asset('assets/favicon.png')}}"><!-- jvectormap -->
     <link href="{{ asset('admin/plugins/jvectormap/jquery-jvectormap-2.0.2.css') }}"
         rel="stylesheet"><!-- App css -->
     <link href="{{ asset('admin/assets/css/bootstrap.min.css') }}" rel="stylesheet"

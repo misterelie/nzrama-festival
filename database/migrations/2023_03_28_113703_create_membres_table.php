@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('telephone', 50)->nullable();
             $table->string('num_whatsapp', 50)->nullable();
             $table->string('email', 191)->nullable()->unique();
-            $table->foreignId('commission_id');
-            $table->foreignId('categorie_id');
+            $table->foreignId('categorie_id')->nullable();
+            $table->foreignId('commission_id')->nullable();
             $table->foreignId('user_id')->nullable();
             $table->string('specicite_fonction_membre')->nullable();
             $table->date('date_creation')->nullable();

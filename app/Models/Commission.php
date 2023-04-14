@@ -25,9 +25,28 @@ class Commission extends Model
         $etat = Etat::find($etatId);
         return $etat;
     }
-
+    
     public function membre(){
         return $this->hasMany(Membre::class);
     }
+    
+    public function attribution(){
+        return $this->hasMany(Attribution::class);
+    }
+    
+    // static function boot() {s
+    //     parent::boot();
 
+    //     static::deleting(function($client) {
+    //         $client->devis->each(function($devis) {  
+    //             $devis->ficheTechnique()->each(function($finissionFiche) {
+    //                 $finissionFiche->finissionFiche()->delete();
+    //             });
+    //             $devis->ficheTechnique()->delete();
+    //         });
+    //         $client->devis()->delete();
+
+    //         return true;
+    //     });
+    // }
 } 

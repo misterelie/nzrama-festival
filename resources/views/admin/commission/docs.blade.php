@@ -116,18 +116,17 @@
                 </div>
             </div> --}}
             <!--end card-header-->
-
             <div class="card-body">
                 <table id="datatable" class="table table-bordered dt-responsive"
                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
                             <th scope="col">Nº</th>
-                            <th>Nom fichier</th>
+                            <th>Noms fichiers</th>
                             <th>Type de fichiers</th>
-                            <th>Libelle</th>
+                            <th>Libelles</th>
                             <th>Fichiers</th>
-                            <th>Date de création</th>
+                            <th>Dates de création</th>
                             <th style="max-width: 120px !important">Action</th>
                         </tr>
                     </thead>
@@ -138,16 +137,16 @@
                             <td scope="col">{{ $commission->id}}</td>
                             <td>
                                 @if($commission->document->count())
-                                 @foreach($commission->document as $document)
-                                 {{ $document->nom_fichier ?? '' }} <br>
-                                 @endforeach
+                                    @foreach($commission->document as $document)
+                                    {{ $document->nom_fichier ?? '' }} <br><br>
+                                    @endforeach
                                  @endif
                              </td>
 
                              <td>
                                 @if($commission->document->count())
                                  @foreach($commission->document as $document)
-                                 {{ $document->typedocument->libelle ?? '' }} <br>
+                                 {{ $document->typedocument->libelle ?? '' }} <br><br>
                                  @endforeach
                                  @endif
                              </td>
@@ -155,7 +154,7 @@
                             <td>
                                @if($commission->document)
                                 @foreach($commission->document as $document)
-                                {{ $document->libelle ?? '' }} <br>
+                                {{ $document->libelle ?? '' }} <br><br>
                                 @endforeach
                                 @endif
                             </td>
@@ -168,7 +167,7 @@
                                         <img src="{{ asset('assets/pdf.png') }}" target-="" 
                                         alt="{{$doc->libelle}}" 
                                         title="{{$doc->libelle}},  Télécharger" width="25">
-                                    </a>
+                                    </a><br><br>
                                 @endif
                                 @endforeach
                                 @endif
@@ -176,18 +175,23 @@
                            </td>
                             <td>{{ $commission->created_at}}</td>
                             <td>
-                                <form
-                                    action="#" method="POST" enctype="multipart/form-data">
+                                @if($commission->document->count())
+                                @foreach($commission->document as $document)
+                                    <form  id="form-{{$document->id}}" 
+                                    action="{{ route('supprime_document', $document->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('DELETE')
 
                                     <a class="btn btn-sm btn-soft-success btn-circle mr-2" href="#!"
-                                        data-target="#modal_" data-toggle="modal"><i class="dripicons-pencil"
-                                            title="Modifier le type document"></i>
+                                        data-target="#modalupdatedocs_{{ $document->id }}" data-toggle="modal"><i class="dripicons-pencil"
+                                            title="Modifier le document"></i>
                                     </a>
                                     <button class="btn btn-sm btn-soft-danger btn-circle mr-2" href=""><i
                                             class="dripicons-trash" title="Supprimer" aria-hidden="true"></i>
-                                    </button>
+                                    </button> <br><br>
+                                @endforeach
+                               @endif
+                                
                                 </form>
                             </td>
                         </tr>
@@ -200,11 +204,11 @@
     </div><!-- end col -->
 </div><!-- end row -->
 
-{{-- <section>
+<section>
     <!--modal-->
-    @if(!is_null($typedocuments))
-        @foreach($typedocuments as $typedocument)
-            <div class="modal fade" id="modal_{{ $typedocument->id }}" tabindex="-1" role="dialog"
+    @if(!is_null($documents))
+        @foreach($documents as $document)
+            <div class="modal fade" id="modalupdatedocs_{{ $document->id }}" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalDefaultLogin" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -213,116 +217,101 @@
                             <div class="card-body p-0 auth-header-box">
                                 <div class="text-center p-3">
                                     <h4 style="color: #1761fd; font-weight: blod" class="mt-3 mb-1 font-weight-semibold font-18">
-                                        Mettre à jour le type document!</h4>
+                                        Mettre à jour le document!</h4>
                                 </div>
                             </div>
                             <div class="tab-content">
                                 <div class="tab-pane active p-3 pt-3" id="LogIn_Tab" role="tabpanel">
                                     <form class="form-horizontal auth-form my-4" method="POST"
-                                        action="{{ url('update/typedocument', $typedocument->id)}}" enctype="multipart/form-data">
-                                        @csrf
-
-                                        @method('PUT')
+                                    action="{{route('update.docs', $document->id)}}" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
                                         <input type="hidden" name="_method" value="put">
-                                        <!--end form-group-->
-                                        <div class="form-group mb-2">
-                                            <label for="nom_commission">Type document : </label>
-                                            <div class="input-group mb-3"><input type="text"
-                                                    class="form-control" name="libelle"
-                                                    id="libelle" 
-                                                    value="{{ $typedocument->libelle }}"
-                                                    value="{{ old('libelle') }}"
-                                                    placeholder="Mettre à jour le type documennt !">
+                                            <!--end form-group-->
+                                            <div class="form-group">
+                                                <label for="image_service">Charger le fichier :
+                                                    <span style="color:red">(docx, pdf, image, etc)</span></label>
+                                                <div class="custom-file"><input type="file"
+                                                       value="{{ old('libelle') }}"
+                                                        class="custom-file-input" name="libelle[]" multiple id="validatedCustomFile">
+                                                        <label class="custom-file-label"
+                                                        for="validatedCustomFile">Cliquez pour choisir le fichier
+                                                        svp !</label><br><br>
+
+                                                        @if($commission->document)
+                                                        {{-- @foreach($commission->document as $doc) --}}
+                                                         @if(!is_null($doc->libelle))
+                                                            <a href="{{ asset('FichierCommission/'.$doc->libelle) }}"
+                                                                target="_blank" rel="noopener noreferrer">
+                                                                <img src="{{ asset('assets/pdf.png') }}" target-="" 
+                                                                alt="{{$doc->libelle}}" 
+                                                                title="{{$doc->libelle}},  Télécharger" width="25">
+                                                            </a>
+                                                        @endif
+                                                        {{-- @endforeach --}}
+                                                        @endif
+                                                        
+                                                    <div class="invalid-feedback">Example invalid custom file
+                                                        feedback
+                                                    </div>
+                                                </div>
+
+                                                @error('libelle')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
                                             </div>
-                                            @error('libelle')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <!--end form-group-->
-                                               
+                                            <!--end form-group-->
+
+                                            <div class="form-group mb-2">
+                                                <label for="nom_fichier">Nom fichier : </label>
+                                                <div class="input-group mb-3"><input type="text"
+                                                        class="form-control" name="nom_fichier"
+                                                        value="{{$document->nom_fichier }}"
+                                                        id="nom_fichier" placeholder="Veuillez donner un nom au fichier">
+                                                </div>
+                                                @error('nom_fichier')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-group mb-2"><label for="type_document_id">
+                                                Type document :</label>
+                                                {{ (old('marque')) }}
+                                                <select class="form-select form-control" name="type_document_id"
+                                                    id="type_document_id" required>
+                                                    <option value="Choisir le type de document">Veuillez Choisir le type de document
+                                                    </option>
+                                                    @if(!is_null($typedocuments))
+                                                        @foreach($typedocuments as $typedocument)
+                                                            <option value="{{ $typedocument->id }}"
+                                                                @if((int) $document->type_document_id == (int)$typedocument->id ) selected
+                                                                @endif>{{ $typedocument->libelle }}
+                                                            </option>
+                                                        @endforeach
+                                                    @endif
+                                                </select>
+                                            </div>
+
+                                            <!--end form-group-->
+                                            <div class="form-group mb-2">
+                                                <label for="commission_id"></label>
+                                                <div class="input-group mb-3"><input type="hidden" 
+                                                    value="{{ $commission->id }}"
+                                                        class="form-control" name="commission_id" id="commission_id">
+                                                </div>
+                                                @error('commission_id')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <!--end form-group-->
                                         <div class="form-group mb-0 row">
                                             <div class="col-12 mt-2">
                                                 <button class="btn btn-primary btn-block waves-effect waves-light"
-                                                    type="submit">Mettre à jour<i class="fas fa-sign-in-alt ml-1"></i></button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <!--end card-body-->
-                            <div class="card-body bg-light-alt text-center">
-                                <span class="text-muted d-none d-sm-inline-block">Planning N'zrama Festival © 2023
-                                </span>
-                            </div>
-                        </div>
-                        <!--end modal-body-->
-                    </div>
-                    <!--end modal-content-->
-                </div>
-                <!--end modal-dialog-->
-            </div>
-            <!--end modal-->
-            </div>
-        @endforeach
-    @endif
-</section> --}}
-
-{{-- <section>
-    <!--modal-->
-    @if(!is_null($commissions))
-        @foreach($commissions as $commission)
-            <div class="modal fade" id="modald_{{ $commission->id }}" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalDefaultLogin" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <!--end modal-header-->
-                        <div class="modal-body">
-                            <div class="card-body p-0 auth-header-box">
-                                <div class="text-center p-3">
-                                    <h4 style="color: #000; font-weight: blod" class="mt-3 mb-1 font-weight-semibold font-18">
-                                        Ajouter un document</h4>
-                                </div>
-                            </div>
-                            <div class="tab-content">
-                                <div class="tab-pane active p-3 pt-3" id="LogIn_Tab" role="tabpanel">
-                                    <form class="form-horizontal auth-form my-4" method="POST"
-                                        action="" enctype="multipart/form-data">
-                                        @csrf
-                                                <!--end form-group-->
-                                                <div class="form-group mb-2">
-                                                    <label for="libelle_doc">Nom documment: </label>
-                                                    <div class="input-group mb-3"><input type="text"
-                                                            class="form-control" name="libelle_doc"
-                                                            id="libelle_doc">
-                                                    </div>
-                                                    @error('libelle_doc')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                                <!--end form-group-->
-
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label for="description_commission">Description commission: </label>
-                                                            <textarea class="form-control summernote" rows="5" id="summernote"
-                                                                name="description_commission" placeholder="">
-                                                            </textarea>
-                                                        </div>
-                                                        @error('description_commission')
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                        
-                                        <div class="form-group mb-0 row">
-                                            <div class="col-12 mt-2">
-                                                <button class="btn btn-primary btn-block waves-effect waves-light"
-                                                    type="submit">Mettre à jour<i class="fas fa-sign-in-alt ml-1"></i>
+                                                    type="submit" style="color: #ffff">Ajouter<i class="fas fa-plus  ml-1"></i>
                                                 </button>
                                             </div>
                                         </div>
-                                    </form>
+                                </form>
                                 </div>
                             </div>
                             <!--end card-body-->
@@ -341,5 +330,5 @@
             </div>
         @endforeach
     @endif
-</section> --}}
+</section> 
 @endsection

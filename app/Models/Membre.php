@@ -10,7 +10,7 @@ class Membre extends Model
     use HasFactory;
     protected $table = "membres";
     protected $guarded = ['id'];
-    protected $fillable = ["nom_membre", "prenoms","fonction", "telephone", "num_whatsapp", "commission_id", "categorie_id", "user_id", "specicite_fonction_membre", "code_membre"];
+    protected $fillable = ["nom_membre", "prenoms", "telephone", "num_whatsapp", "commission_id", "categorie_id", "user_id", "specicite_fonction_membre", "code_membre"];
 
     public function user(){
         return $this->belongsTo(User::class, "user_id");

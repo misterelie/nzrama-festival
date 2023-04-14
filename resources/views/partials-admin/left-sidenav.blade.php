@@ -3,10 +3,11 @@
     <!-- LOGO -->
     <div class="brand"><a href="#" class="logo"><span>
                         <img src="{{asset('admin/assets/images/logo-nzrama.png')}}"
-                    alt="logo-small" class="logo-sm" width="100px" height="100px"></span><span>
+                    alt="logo-small" class="logo-sm"></span><span>
                         {{-- <img src="{{asset('admin/assets/images/logo-nzrama.png')}}"
-                    alt="logo-large" class="logo-lg logo-light" width="100" height="100"> --}}
-                         <img  src="{{asset('admin/assets/images/logo-nzrama.png')}}"  alt="logo-large" class="logo-lg logo-dark" width="100px" height="100px"></span>
+                    alt="logo-large" class="logo-lg logo-light" width="200" height="70" style="margin-top: 20px;"> --}}
+
+                         {{-- <img  src="{{asset('admin/assets/images/logo-nzrama.png')}}"  alt="logo-large" class="logo-lg logo-dark" width="100px" height="100px"></span> --}}
                       </a>
     </div>
     <!--end logo-->
@@ -28,6 +29,13 @@
                 </ul>
             </li> --}}
 
+            <li>
+                <a href="{{route('dashboard')}}"><i data-feather="home"
+                class="align-self-center menu-icon"></i><span>ACCUEIL</span><span
+                class="menu-arrow"></i></span>
+               </a>
+            </li>
+
             <li><a href="javascript: void(0);">
                 <i data-feather="grid"
                         class="align-self-center menu-icon"></i><span>GESTION COMMISSIONS</span><span class="menu-arrow"><i
@@ -44,8 +52,10 @@
                     <li class="nav-item"><a class="nav-link" href="{{ url('nos-commssions') }}"><i
                                 class="ti-control-record"></i>Les commissions</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('all.documents') }}"><i
-                        class="ti-control-record"></i>Les documents</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('document.commission') }}"><i
+                        class="ti-control-record"></i>Les documents
+                        </a>
                     </li>
                     {{-- <li class="nav-item"><a class="nav-link" href="apps-contact-list.html"><i
                                 class="ti-control-record"></i>Contact List</a></li>
@@ -81,14 +91,23 @@
                 </ul>
             </li>
 
-            <li><a href="javascript: void(0);"><i 
-                class="fa fa-users align-self-center menu-icon" aria-hidden="true"></i><span>
-                    GESTION MEMBRES</span><span class="menu-arrow"><i
-                    class="mdi mdi-chevron-right"></i></span></a>
+
+            <li><a href="javascript: void(0);">
+                    <i class="fa fa-users align-self-center menu-icon" aria-hidden="true">
+                        </i><span>
+                        GESTION MEMBRES</span><span class="menu-arrow">
+                    <i class="mdi mdi-chevron-right"></i>
+                    </span>
+                </a>
                 <ul class="nav-second-level" aria-expanded="false">
                   
-                    <li class="nav-item"><a class="nav-link" href="{{ route('liste_membres') }}"><i
-                                class="ti-control-record"></i>Les membres</a>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('liste/membres') }}"><i
+                                class="ti-control-record"></i>Liste des membres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('categorie.membre') }}"><i
+                        class="ti-control-record"></i>Catégories des membres
+                        </a>
                     </li>
                     {{-- <li class="nav-item"><a class="nav-link" href="apps-contact-list.html"><i
                                 class="ti-control-record"></i>Contact List</a></li>
@@ -103,6 +122,35 @@
                 </ul>
             </li> 
 
+            <li><a href="javascript: void(0);"><i data-feather="grid" 
+                class="align-self-center menu-icon" aria-hidden="true"></i><span>
+                    GESTION ATTRIBUTIONS</span><span class="menu-arrow"><i
+                    class="mdi mdi-chevron-right"></i></span></a>
+                <ul class="nav-second-level" aria-expanded="false">
+                  
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('liste.attribution')}}"><i class="ti-control-record"></i>Les attributions
+                        </a>
+                    </li>
+                </ul>
+            </li> 
+
+            <li><a href="javascript: void(0);">
+                <i data-feather="grid"
+                        class="align-self-center menu-icon"></i><span>GESTION TACHES</span><span class="menu-arrow"><i
+                            class="mdi mdi-chevron-right"></i></span></a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li class="nav-item"><a class="nav-link" href="{{route('admin.taches.index')}}"><i
+                                class="ti-control-record"></i>Les tâches</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i
+                        class="ti-control-record"></i>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
             <li><a href="javascript: void(0);"><i data-feather="users"
                         class="align-self-center menu-icon"></i><span>GESTION UTILISATEURS</span><span
                         class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
@@ -110,16 +158,6 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('admin.add_user')}}"><i
                                 class="ti-control-record"></i>gestion utilisateurs</a>
                     </li>
-                    {{-- <li class="nav-item"><a class="nav-link" href="auth-register.html"><i
-                                class="ti-control-record"></i>Register</a></li>
-                    <li class="nav-item"><a class="nav-link" href="auth-recover-pw.html"><i
-                                class="ti-control-record"></i>Recover Password</a></li>
-                    <li class="nav-item"><a class="nav-link" href="auth-lock-screen.html"><i
-                                class="ti-control-record"></i>Lock Screen</a></li>
-                    <li class="nav-item"><a class="nav-link" href="auth-404.html"><i
-                                class="ti-control-record"></i>Error 404</a></li>
-                    <li class="nav-item"><a class="nav-link" href="auth-500.html"><i
-                                class="ti-control-record"></i>Error 500</a></li> --}}
                 </ul>
             </li>
             <hr class="hr-dashed hr-menu">
@@ -238,17 +276,17 @@
                         class="align-self-center menu-icon"></i><span>PARAMETRES</span><span class="menu-arrow"><i
                             class="mdi mdi-chevron-right"></i></span></a>
                 <ul class="nav-second-level" aria-expanded="false">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.type_documents.add_typedocs')}}"><i
-                                class="ti-control-record"></i>gestion de types documents</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.type_documents.add_typedocs')}}"><i
+                                class="ti-control-record"></i>gestion de types documents
+                        </a>
                     </li>
 
                     <li class="nav-item"><a class="nav-link" href="{{ url('etat/stauts') }}"><i
-                        class="ti-control-record"></i>Gestion des statuts</a>
+                        class="ti-control-record"></i>Gestion des statuts
+                    </a>
                     </li>
 
-                    <li class="nav-item"><a class="nav-link" href="{{ route('categorie.membre') }}"><i
-                        class="ti-control-record"></i>Gestion des Catégories</a>
-                    </li>
                     {{-- <li class="nav-item"><a class="nav-link" href="pages-pricing.html"><i
                                 class="ti-control-record"></i>Pricing</a></li>
                     <li class="nav-item"><a class="nav-link" href="pages-profile.html"><i

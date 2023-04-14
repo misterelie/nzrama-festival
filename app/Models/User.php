@@ -72,4 +72,12 @@ class User extends Authenticatable
        return $this->hasMany(Membre::class, "membre_id");
     }
 
+    public function attribution(){
+      return $this->hasMany(Attribution::class);
+  }
+
+  public function tache(){
+    return $this->hasMany(Tache::class, "user_id");
+}
+
 }

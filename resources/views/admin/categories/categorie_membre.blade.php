@@ -129,10 +129,10 @@
                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
-                            <th scope="col">ID</th>
+                            <th scope="col">Nº</th> 
                             <th>Catégories</th>
-                            <th>Date de création</th>
-                            <th style="max-width: 120px !important">Action</th>
+                            <th>Dates de création</th>
+                            <th style="max-width: 120px !important">Actions</th>
                         </tr>
                     </thead>
                   <tbody>

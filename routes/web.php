@@ -1,11 +1,15 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\CommissionController  as AdminCommissionController ;
+use App\Http\Controllers\Users\UserController  as UsersUserController ;
 use App\Http\Controllers\Admin\MembresController  as AdminMembresController ;
 use App\Http\Controllers\Admin\DashboardController  as AdminDashboardController ;
-use App\Http\Controllers\Users\UserController  as UsersUserController ;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CommissionController  as AdminCommissionController ;
+use App\Http\Controllers\Admin\AttributionController  as AdminAttributionController ;
+use App\Http\Controllers\Admin\TacheController  as AdminTacheController ;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,11 +23,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', [AdminDashboardController::class, 'dashboard']);
+Route::get('/clear-config', function () {
+    Artisan::call('config:clear');
+});
 
-Route::get('/', function () {
-    return view('admin.dash');
-})->middleware(['auth', 'verified'])->name('admin.dash');
+
+
+// Route::get('/', [AdminDashboardController::class, 'dashboard']);
+
+Route::get('/', [AdminDashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+
+// Route::get('/', function () {
+//     return view('admin.dash');
+// })->middleware(['auth', 'verified'])->name('admin.dash');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -41,15 +53,16 @@ Route::put('/update/typedocument/{typedocument}', [AdminCommissionController ::c
 Route::delete('/supprime/typedocument/{typedocument}', [AdminCommissionController ::class, 'destroy_typedoc']);
 
 // les documents des commissions
-Route::get('/all.documents', [AdminCommissionController::class, 'all_docs'])->name('all.documents');
+Route::get('/document.commission', [AdminCommissionController::class, 'all_docs'])->name('document.commission');
 Route::post('/save/documents', [AdminCommissionController::class, 'store_document'])->name('save.documents');
+Route::put('/update.docs/{document}', [AdminCommissionController ::class, 'update_document'])->name('update.docs');
+Route::delete('/supprime_document/{document}', [AdminCommissionController ::class, 'delete_document'])->name('supprime_document');
 
 //section commission
 Route::get('/nos-commssions', [AdminCommissionController::class, 'add_commission'])->name("nos-commssions");
 Route::post('/store/commission', [AdminCommissionController::class, 'save_commission']);
 Route::put('/update/commission/{commissions}', [AdminCommissionController ::class, 'update']);
 Route::delete('/supprime/commission/{commissions}', [AdminCommissionController ::class, 'destroy']);
-// Route::put('/update.etat/{commissions}', [AdminCommissionController ::class, 'update_etat'])->name('update.etat'); 
 
 //section status
 Route::get('/etat/stauts', [AdminCommissionController::class, 'add_status']);
@@ -72,7 +85,24 @@ Route::put('/update.categorie_membre/{categoriemembre}', [AdminMembresController
 Route::delete('/delete.categorie/{categoriemembre}', [AdminMembresController::class, 'destroy_categorie'])->name('delete.categorie');
 
 //SECTION MEMBRE
-Route::get('/liste_membres',[AdminMembresController::class, 'membres'])->name('liste_membres');
+Route::get('/liste/membres',[AdminMembresController::class, 'membres']);
 Route::post('/save_membres', [AdminMembresController::class, 'store_membre'])->name('save_membres');
 Route::put('/update.membre/{membre}', [AdminMembresController::class, 'update_membre'])->name('update.membre');
 Route::delete('/supprime_membre/{membre}', [AdminMembresController::class, 'destroy_membre'])->name('supprime_membre');
+
+//SECTION ATTRIBUTION
+Route::get('/liste.attribution',[AdminAttributionController::class, 'add_attribu'])->name('liste.attribution');
+Route::post('/save/attribution', [AdminAttributionController::class, 'store_attribution']);
+Route::put('/update/attribution/{attribution}', [AdminAttributionController ::class, 'update']);
+Route::delete('/supprime/attribution/{attribution}', [AdminAttributionController::class, 'destroy']);
+Route::post('/store/documents', [AdminAttributionController::class, 'store_document_attribu'])->name('store.documents');
+Route::put('/update/etat/{attribution}', [AdminAttributionController ::class, 'update_etat'])->name('etat.attribution');
+
+
+//section taches
+Route::get('/liste/taches',[AdminTacheController::class, 'add_tasks'])->name('admin.taches.index');
+Route::post('/storeTache', [AdminTacheController::class, 'store_tache'])->name('save_tache');
+Route::put('/tache_update/{tache}', [AdminTacheController::class,'update'])->name('tache_update');
+Route::delete('/supprime/{tache}', [AdminTacheController::class, 'delete'])->name('delete_tache');
+Route::put('/update.etat/{tache}', [AdminTacheController::class,'update_etat_tache'])->name('update.etat');
+Route::post('/storeDocuments', [AdminTacheController::class, 'save_document_tache'])->name('save.documents');

@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->integer('type_document_id');
+            $table->integer('type_document_id')->nullable();
             $table->string('nom_fichier')->nullable();
             $table->integer('commission_id')->nullable();
+            $table->integer('attribution_id')->nullable();
             $table->string('libelle', 191)->nullable();
             $table->timestamps();
         });

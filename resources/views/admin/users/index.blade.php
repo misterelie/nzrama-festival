@@ -190,7 +190,7 @@
                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
-                            <th scope="col">ID</th>
+                            <th scope="col">Nº</th>
                             <th>Photos</th>
                             <th>Noms</th>
                             <th>Prénoms</th>
@@ -294,8 +294,7 @@
                                          
                                          <div class="form-group"><label for="photo">Photos
                                                  <span style="color: red">
-                                                    (Vous pouvez mettre à jour votre photo de profil
-                                                     )</span>
+                                                    (Vous pouvez mettre à jour votre photo de profil)</span>
                                                     </label>
                                              <div class="custom-file"><input type="file"
                                                      class="custom-file-input" id="validatedCustomFile"

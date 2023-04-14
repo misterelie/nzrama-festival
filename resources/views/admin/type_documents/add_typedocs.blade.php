@@ -71,7 +71,7 @@
                                 <div class="modal-body">
                                     <div class="card-body p-0 auth-header-box">
                                         <div class="text-center p-3">
-                                            <h4 style="color: red; font-size: 12px" class="mt-3 mb-1 font-weight-semibold font-18">
+                                            <h4 style="color: #1761fd; font-size: 12px" class="mt-3 mb-1 font-weight-semibold font-18">
                                                 Ajouter un type document !</h4>
                                         </div>
                                     </div>
@@ -101,7 +101,7 @@
                                         <div class="form-group mb-0 row">
                                             <div class="col-12 mt-2"><button
                                                     class="btn btn-primary btn-block waves-effect waves-light"
-                                                    type="submit">Enregistrer<i class="fas fa-sign-in-alt ml-1"></i></button>
+                                                    type="submit">Ajouter<i class="fas fa-plus in-alt ml-1"></i></button>
                                             </div>
                                             <!--end col-->
                                         </div>
@@ -130,7 +130,7 @@
                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
-                            <th scope="col">ID</th>
+                            <th scope="col">Nº</th>
                             <th>Type de document</th>
                             <th>Auteur</th>
                             <th>Date de création</th>

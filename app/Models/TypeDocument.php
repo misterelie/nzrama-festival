@@ -19,4 +19,8 @@ class TypeDocument extends Model
     public function document(){
         return $this->hasMany(Document::class);
     }
+
+    public function document_attribu(){
+        return $this->hasMany(Documentattribution::class);
+    }
 }

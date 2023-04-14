@@ -22,7 +22,6 @@ class CommissionController extends Controller
         $this->middleware('auth');
     }
 
-
     public function add_commission(){
         // $commissions = Commission::all();
         $commissions = Commission::orderBy('created_at', 'ASC')->get();
@@ -35,7 +34,7 @@ class CommissionController extends Controller
     public function save_commission(Request $request){
         $request->validate([
             "nom_commission" => "required",
-            "description_commission" => "required",
+            "description_commission" => "nullable",
         
         ]);
         $commissions = new Commission();
@@ -44,22 +43,20 @@ class CommissionController extends Controller
         //$commissions->date_creation = $request->date_creation->Carbon::now();
         $commissions->description_commission = $request->description_commission;
         $commissions->code_commission = rand(00001, 99999);
-        $commissions->code_commission = Str::slug($commissions->nom_commission.'-'.rand(00001, 99999));
+        $commissions->code_commission = Str::slug(mb_strtoupper('COM').'-'.rand(00001, 99999));
         $commissions->save();
         return redirect()->back()->with('success', 'Félicitations! Vous avez enregistré la commission avec succès ');
     }
 
     //METTRE A JOUR LA COMMISSION
     public function update(Request $request, Commission $commissions){
-        //dd($request->all());
         $request->validate([
             "nom_commission" => "required",
             "description_commission" => "required",
-            // "etat" => "required",
         ]);
+
         if (!is_null($request->commissions)) {
             $commissions->nom_commission = $request->nom_commission;
-            // $commissions->etat = $request->etat;
             $commissions->description_commission = $request->description_commission;
             $commissions->save();
         }
@@ -72,6 +69,7 @@ class CommissionController extends Controller
         return back()->with("success", "La commission est Supprimée avec succès !");
     }
 
+    
     //SECTION TYPE DOCUMENT
     public function typedoc(){
         $typedocuments = TypeDocument::orderBy('created_at', 'DESC')->get();
@@ -82,6 +80,7 @@ class CommissionController extends Controller
         $request->validate([
             "libelle" => "required",
         ]);
+        
         $typedocuments = new TypeDocument();
         $typedocuments->user_id = Auth::user()->id;
         $typedocuments->libelle = $request->libelle;
@@ -109,8 +108,13 @@ class CommissionController extends Controller
     }//FIN SECTION TYPE DOCUMENT
 
     //SECTION DOCUMENT
+     public function all_docs(){
+        $typedocuments = TypeDocument::all();
+        $documents = Document::orderBy('created_at', 'ASC')->get();
+        $commissions = Commission::orderBy('created_at', 'ASC')->has('document')->get();
+        return view('admin.commission.docs', compact('commissions', 'documents', 'typedocuments'));
+    }
     public function store_document(Request $request){
-       //dd($request->all());
         $request->validate([
             "type_document_id" => "required",
             "nom_fichier" => "required",
@@ -121,12 +125,12 @@ class CommissionController extends Controller
             $documents->type_document_id = $request->type_document_id;
             $documents->commission_id = $request->commission_id;
             $documents->nom_fichier = $request->nom_fichier;
+
             if ($request->hasFile('libelle')) {
                 $files = $request->file('libelle');
                 foreach ($files as $file) {
                     $filename = $file->getClientOriginalName();
                     $file->move(public_path("FichierCommission"), $filename);
-                    //dd($filename );
                     Document::create([
                         'type_document_id' => $request->type_document_id,
                         'nom_fichier' => $request->nom_fichier,
@@ -139,12 +143,42 @@ class CommissionController extends Controller
            ->with('success', 'Félicitations ! Vous avez ajouté le document avec succès ');
     }
 
-    //liste de tous les documents commissions
-    public function all_docs(){
-        // $commissions = Document::all();
-        $commissions = Commission::orderBy('created_at', 'ASC')->has('document')->get();
-        return view('admin.commission.docs', compact('commissions'));
-    }
+
+    public function update_document(Request $request, Document $document){
+        //dd($request->all());
+        $request->validate([
+             "type_document_id" => "required",
+             "nom_fichier" => "required",
+             "commission_id" =>  "required",
+             "libelle" => "nullable",
+         ]);
+             $document->type_document_id = $request->type_document_id;
+             $document->commission_id = $request->commission_id;
+             $document->nom_fichier = $request->nom_fichier;
+
+             if ($request->hasFile('libelle')) {
+                 $files = $request->file('libelle');
+                 //dd($files);
+                 foreach ($files as $file) {
+                     $filename = $file->getClientOriginalName();
+                     $file->move(public_path("FichierCommission"), $filename);
+                     $document->Update([
+                         'type_document_id' => $request->type_document_id,
+                         'nom_fichier' => $request->nom_fichier,
+                         'commission_id' => $request->commission_id,
+                         'libelle' => $filename,
+                         ]);
+                 }
+         }
+            $document->save();
+            return redirect()->back()->with('success', 'Félicitations ! Vous avez mis à jour le document avec succès ');
+     }
+        public function delete_document(Document $document){
+            $document->delete();
+            return back()->with("success", "Document est Supprimé avec succès !");
+        }
+
+
 
      //gestion de satus
      public function add_status()
@@ -152,7 +186,6 @@ class CommissionController extends Controller
         $etats = Etat::all();
         return view('admin.etats.status', compact('etats'));
      }
-
     public function store_status(Request $request){
         $request->validate([
             "status" => "required",
@@ -165,7 +198,6 @@ class CommissionController extends Controller
         return redirect()->back()
          ->with('success','Félicitations ! Vous avez enregistré le status avec avec succès '); 
     }
-    
     public function update_status(Request $request, Etat $etat)
     {
         $request->validate([
@@ -180,6 +212,7 @@ class CommissionController extends Controller
         $etat->delete();
         return back()->with("success", "Status est Supprimé avec succès !");
     }
+    
     // public function update_etat(Request $request, Commission $commissions){
     //     //dd($request->all());
     //     $request->validate([

@@ -145,6 +145,10 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+
+        'nom_fichier' => [
+            'required' => 'Le champ :attribute ne peut pas être vide',
+        ],
     ],
 
     /*

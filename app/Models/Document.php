@@ -11,7 +11,7 @@ class Document extends Model
     protected $table = "documents";
     protected $guarded = ['id'];
 
-  protected $fillable = ["type_document_id", "nom_fichier", "commission_id", "libelle"];
+  protected $fillable = ["type_document_id", "nom_fichier", "commission_id", "libelle", "tache_id"];
 
 
     public function TypeDocument()
@@ -22,5 +22,10 @@ class Document extends Model
     public function commission()
     {
        return $this->belongsTo(Commission::class, "commission_id");
+    }
+
+    public function tacheDocs()
+    {
+       return $this->belongsTo(Tache::class, "tache_id");
     }
 }
