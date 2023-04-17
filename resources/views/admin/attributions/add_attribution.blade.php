@@ -70,7 +70,7 @@
                                     <div class="tab-content">
                                     <div class="tab-pane active p-3 pt-3" id="LogIn_Tab" role="tabpanel">
                                         <form class="form-horizontal auth-form my-4" method="POST"
-                                        action="{{ url('save/attribution') }}" enctype="multipart/form-data">
+                                        action="{{ route('save.attribution') }}" enctype="multipart/form-data">
                                         @csrf
 
                                         <!--end form-group-->
@@ -173,20 +173,28 @@
                             <td>{{ str_replace("att","ATT",$attribution->code_attribution ) }}</td>
                             <td>{{$attribution->nom_attribution}}</td>
                    
-                            <td style="color: #1761fd; font-weight:bold">{{$attribution->commissionAttributtion->nom_commission}}</td>
+                            <td style="color: #1761fd; font-weight:bold">{{$attribution->commissionAttributtion->nom_commission ?? ''}}</td>
                             <td>
                                 <span class="badge {{$attribution->etatStatus($attribution->etat)->etat_color}} fs-8 fw-bolder">{{$attribution->etatStatus($attribution->etat)->status}}</span>
                             </td>
 
                             <td>
-                                @if($attribution->document->count() )
-                                @foreach ($attribution->document as $item)
-                                    <a href="{{ asset('FichiersAttribution/'.$item->libelle_attribution )}}" target="_blank" rel="noopener noreferrer">
-                                        <img src="{{ asset('assets/pdf.png') }}" target-="" title="{{ $item->libelle_attribution }}" alt="{{ $item->libelle_attribution }}" width="30">
+                                @if($attribution->document)
+                                @foreach ($attribution->document as $key => $item)
+                                    <a href="{{ asset('FichiersAttribution/'.$item->libelle )}}" target="_blank" rel="noopener noreferrer">
+                                        <img src="{{ asset('assets/pdf.png') }}" target-="" title="{{ $item->libelle }}" alt="{{ $item->libelle }}" width="30">
                                     </a>
+                                    @if($key == 2)
+                                    <a class="mr-2 mt-4" href="#!" style="color:#03d87f"
+                                        data-target="#modaldetailattribu_{{ $attribution->id }}" data-toggle="modal">
+                                        Voir plus...
+                                    </a>
+                                    @break
+                                    @endif
                                 @endforeach
                             @endif
                             </td>
+
                             <td>{{ $attribution->created_at }} <br>
                                 Ajouté par <span style="color: #1761fd ">{{$attribution->attributionuser->name ?? ''}}</span>
                             </td>
@@ -409,7 +417,7 @@
  <!--fin modal de mise à jour-->
 
   <!--modal details-->
-  <section>
+<section>
     @if(!is_null($attributions))
         @foreach($attributions as $attribution)
             <div class="modal fade" id="modaldetailattribu_{{ $attribution->id }}" tabindex="-1" role="dialog"
@@ -425,6 +433,17 @@
                 <div class="modal-body">
                         <div class="card-body">
                             <div class="row">
+                                <div class="col-lg-6 align-self">
+                                    <h3>Vous pouvez télécharger: <br><br>
+                                        @if($attribution->document->count() > 0)
+                                        @foreach ($attribution->document as $item)
+                                            <a href="{{ asset('FichiersAttribution/'.$item->libelle )}}" target="_blank" rel="noopener noreferrer">
+                                                <img src="{{ asset('assets/pdf.png') }}" target-="" title="{{ $item->libelle }}" alt="{{ $item->libelle }}" width="100">
+                                            </a>
+                                        @endforeach
+                                    @endif
+                                    </h3>
+                                </div>
                                 <div class="col-lg-6 align-self">
                                     <p  class="text-muted mb-0">Description:<br><br>{!!$attribution->description_attribution!!}<br></p>
                                 </div>
@@ -468,16 +487,16 @@
                             <div class="tab-content">
                                 <div class="tab-pane active p-3 pt-3" id="LogIn_Tab" role="tabpanel">
                                     <form class="form-horizontal auth-form my-4" method="POST"
-                                        action="{{ url('store/documents')}}" enctype="multipart/form-data">
+                                        action="{{ route('store.documents')}}" enctype="multipart/form-data">
                                         @csrf
                                                 <!--end form-group-->
-                                                <div class="form-group"><label for="libelle_attribution">
+                                                <div class="form-group"><label for="libelle">
                                                     Charger le fichier :
                                                         <span style="color:red">(docx, pdf, image, etc)</span></label>
 
                                                     <div class="custom-file"><input type="file"
-                                                           value="{{ old('libelle_attribution') }}"
-                                                            class="custom-file-input" name="libelle_attribution[]" multiple id="validatedCustomFile"
+                                                           value="{{ old('libelle') }}"
+                                                            class="custom-file-input" name="libelle[]" multiple id="validatedCustomFile"
                                                             required=""><label class="custom-file-label"
                                                             for="validatedCustomFile">Cliquez pour choisir le fichier
                                                             svp !</label>
@@ -486,7 +505,7 @@
                                                         </div>
                                                     </div>
 
-                                                    @error('libelle_attribution')
+                                                    @error('libelle')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -507,7 +526,7 @@
                                                     {{ (old('marque')) }}
                                                     <select class="form-select form-control" name="type_document_id"
                                                         id="type_document_id" required>
-                                                        <option value="Choisir le type de document">Veuillez Choisir le type de document
+                                                        <option value="">Veuillez sélectionner le type de document
                                                         </option>
                                                         @if(!is_null($typedocuments))
                                                             @foreach($typedocuments as $typedocument)

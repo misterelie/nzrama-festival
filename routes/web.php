@@ -92,17 +92,25 @@ Route::delete('/supprime_membre/{membre}', [AdminMembresController::class, 'dest
 
 //SECTION ATTRIBUTION
 Route::get('/liste.attribution',[AdminAttributionController::class, 'add_attribu'])->name('liste.attribution');
-Route::post('/save/attribution', [AdminAttributionController::class, 'store_attribution']);
+Route::post('/attributions', [AdminAttributionController::class, 'store_attribution'])->name('save.attribution');
 Route::put('/update/attribution/{attribution}', [AdminAttributionController ::class, 'update']);
 Route::delete('/supprime/attribution/{attribution}', [AdminAttributionController::class, 'destroy']);
-Route::post('/store/documents', [AdminAttributionController::class, 'store_document_attribu'])->name('store.documents');
+Route::post('/store.documents', [AdminAttributionController::class, 'store_document_attribu'])->name('store.documents');
 Route::put('/update/etat/{attribution}', [AdminAttributionController ::class, 'update_etat'])->name('etat.attribution');
+Route::get('/document.attribution', [AdminAttributionController::class, 'documents_attributions'])->name('document.attribution');
+
+Route::put('/update.docsattribu/{document}', [AdminAttributionController ::class, 'update_doc_attribution'])->name('update.docsattribu');
+Route::delete('/supprimedocument/{document}', [AdminAttributionController ::class, 'destroy_document'])->name('supprimedocument');
 
 
-//section taches
+//SECTION TACHES
 Route::get('/liste/taches',[AdminTacheController::class, 'add_tasks'])->name('admin.taches.index');
 Route::post('/storeTache', [AdminTacheController::class, 'store_tache'])->name('save_tache');
 Route::put('/tache_update/{tache}', [AdminTacheController::class,'update'])->name('tache_update');
 Route::delete('/supprime/{tache}', [AdminTacheController::class, 'delete'])->name('delete_tache');
 Route::put('/update.etat/{tache}', [AdminTacheController::class,'update_etat_tache'])->name('update.etat');
 Route::post('/storeDocuments', [AdminTacheController::class, 'save_document_tache'])->name('save.documents');
+
+Route::get('/document.tache', [AdminTacheController::class, 'docs_tache'])->name('document.tache');
+Route::put('/update.docstache/{document}', [AdminTacheController::class, 'update_docs_tache'])->name('update.docstache');
+Route::delete('/delete_document/{document}', [AdminTacheController ::class, 'destroy_document_tache'])->name('delete_document');

@@ -6,7 +6,7 @@
         <div class="page-title-box">
             <div class="row">
                 <div class="col">
-                    <h4 class="page-title">Liste des documents des attributions</h4>
+                    <h4 class="page-title">Liste des documents des Tâches</h4>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Tables</a></li>
                         <li class="breadcrumb-item active">Documents</li>
@@ -51,6 +51,71 @@
         </div>
 
         <div class="card">
+            {{-- <div class="card-header">
+                <div class="card-body"><button type="button" class="btn btn-outline-primary" data-toggle="modal"
+                        data-target="#exampleModalLogin">Ajouter un type document</button>
+                    <!--modal-->
+                    <div class="modal fade" id="exampleModalLogin" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalDefaultLogin" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <!--end modal-header-->
+                                <div class="modal-body">
+                                    <div class="card-body p-0 auth-header-box">
+                                        <div class="text-center p-3">
+                                            <h4 style="color: red; font-size: 12px" class="mt-3 mb-1 font-weight-semibold font-18">
+                                                Ajouter un type document !</h4>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane active p-3 pt-3" id="LogIn_Tab" role="tabpanel">
+                                            <form class="form-horizontal auth-form my-4" method="POST"
+                                                action="#" enctype="multipart/form-data">
+                                                @csrf
+
+                                                <!--end form-group-->
+                                                <div class="form-group mb-2">
+                                                    <label for="nom_commission">Type document : </label>
+                                                    <div class="input-group mb-3"><input type="text"
+                                                            class="form-control" name="libelle"
+                                                            id="libelle" required=""
+                                                            value="{{ old('libelle') }}"
+                                                            placeholder="Entrez le nom un type document svp !">
+                                                    </div>
+                                                    @error('libelle')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <!--end form-group-->
+                                        </div>
+                                        <!--end form-group-->
+                                        <div class="form-group mb-0 row">
+                                            <div class="col-12 mt-2"><button
+                                                    class="btn btn-primary btn-block waves-effect waves-light"
+                                                    type="submit">Enregistrer<i class="fas fa-sign-in-alt ml-1"></i></button>
+                                            </div>
+                                            <!--end col-->
+                                        </div>
+                                        <!--end form-group-->
+                                        </form>
+                                    </div>
+                                </div>
+                                <!--end card-body-->
+                                <div class="card-body bg-light-alt text-center">
+                                    <span class="text-muted d-none d-sm-inline-block">Planning N'zrama Festival © 2023
+                                    </span>
+                                </div>
+                            </div>
+                            <!--end modal-body-->
+                        </div>
+                        <!--end modal-content-->
+                    </div>
+                    <!--end modal-->
+
+                </div>
+            </div> --}}
+            <!--end card-header-->
             <div class="card-body">
                 <table id="datatable" class="table table-bordered dt-responsive"
                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -59,45 +124,45 @@
                             <th scope="col">Nº</th>
                             <th>Noms fichiers</th>
                             <th>Type de fichiers</th>
-                            <th>Attributions</th>
+                            <th>Tâches</th>
                             <th>Fichiers</th>
                             <th>Dates de création</th>
                             <th style="max-width: 120px !important">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if(!is_null($attributions))
-                        @foreach($attributions as $attribution)
+                        @if(!is_null($taches))
+                        @foreach($taches as $tache)
                         <tr>
-                            <td scope="col">{{ $attribution->id}}</td>
+                            <td scope="col">{{ $tache->id}}</td>
                             <td>
-                                @if($attribution->document->count())
-                                    @foreach($attribution->document as $document)
+                                @if($tache->document->count())
+                                    @foreach($tache->document as $document)
                                     {{ $document->nom_fichier ?? '' }} <br><br>
                                     @endforeach
                                  @endif
                              </td>
 
                              <td>
-                                @if($attribution->document->count())
-                                 @foreach($attribution->document as $document)
+                                @if($tache->document->count())
+                                 @foreach($tache->document as $document)
                                  {{ $document->typedocument->libelle ?? '' }} <br><br>
                                  @endforeach
                                  @endif
                              </td>
 
                             <td>
-                               @if($attribution->document)
-                                @foreach($attribution->document as $document)
-                                {{ $document->attribution->nom_attribution }} <br><br>
+                               @if($tache->document)
+                                @foreach($tache->document as $document)
+                                {{ $document->tache->nom_tache }} <br><br>
                                 @endforeach
                                 @endif
                             </td>
                             <td>
-                                @if($attribution->document)
-                                @foreach($attribution->document as $doc)
+                                @if($tache->document)
+                                @foreach($tache->document as $doc)
                                  @if(!is_null($doc->libelle))
-                                    <a href="{{ asset('FichiersAttribution/'.$doc->libelle) }}"
+                                    <a href="{{ asset('FichiersTaches/'.$doc->libelle) }}"
                                         target="_blank" rel="noopener noreferrer">
                                         <img src="{{ asset('assets/pdf.png') }}" target-="" 
                                         alt="{{$doc->libelle}}" 
@@ -108,12 +173,12 @@
                                 @endif
 
                            </td>
-                            <td>{{ $attribution->created_at}}</td>
+                            <td>{{ $document->created_at}}</td>
                             <td>
-                                @if($attribution->document->count())
-                                @foreach($attribution->document as $document)
+                                @if($tache->document->count())
+                                @foreach($tache->document as $document)
                                     <form  id="form-{{$document->id}}" 
-                                    action="{{ route('supprimedocument', $document->id) }}" method="POST" enctype="multipart/form-data">
+                                    action="{{ route('delete_document', $document->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('DELETE')
 
@@ -126,7 +191,6 @@
                                     </button> <br><br>
                                 @endforeach
                                @endif
-                                
                                 </form>
                             </td>
                         </tr>
@@ -158,7 +222,7 @@
                             <div class="tab-content">
                                 <div class="tab-pane active p-3 pt-3" id="LogIn_Tab" role="tabpanel">
                                     <form class="form-horizontal auth-form my-4" method="POST"
-                                    action="{{route('update.docsattribu', $document->id)}}" enctype="multipart/form-data">
+                                    action="{{route('update.docstache', $document->id)}}" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                         <input type="hidden" name="_method" value="put">
@@ -173,9 +237,9 @@
                                                         for="validatedCustomFile">Cliquez pour choisir le fichier
                                                         svp !</label><br><br>
 
-                                                        @if($attribution->document)
+                                                        @if($tache->document)
                                                          @if(!is_null($doc->libelle))
-                                                            <a href="{{ asset('FichiersAttribution/'.$doc->libelle) }}"
+                                                            <a href="{{ asset('FichiersTaches/'.$doc->libelle) }}"
                                                                 target="_blank" rel="noopener noreferrer">
                                                                 <img src="{{ asset('assets/pdf.png') }}" target-="" 
                                                                 alt="{{$doc->libelle}}" 
@@ -227,12 +291,12 @@
 
                                             <!--end form-group-->
                                             <div class="form-group mb-2">
-                                                <label for="attribution_id"></label>
+                                                <label for="tache_id"></label>
                                                 <div class="input-group mb-3"><input type="hidden" 
-                                                    value="{{ $attribution->id }}"
-                                                        class="form-control" name="attribution_id" id="attribution_id">
+                                                    value="{{ $tache->id }}"
+                                                        class="form-control" name="tache_id" id="tache_id">
                                                 </div>
-                                                @error('attribution_id')
+                                                @error('tache_id')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
@@ -263,5 +327,5 @@
             </div>
         @endforeach
     @endif
-</section> 
+</section>
 @endsection

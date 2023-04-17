@@ -26,7 +26,7 @@ class Attribution extends Model
     }
 
     public function document(){
-        return $this->hasMany(Documentattribution::class);
+        return $this->hasMany(Document::class);
     }
 
     public function tache(){

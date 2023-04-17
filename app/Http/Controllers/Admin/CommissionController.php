@@ -114,6 +114,7 @@ class CommissionController extends Controller
         $commissions = Commission::orderBy('created_at', 'ASC')->has('document')->get();
         return view('admin.commission.docs', compact('commissions', 'documents', 'typedocuments'));
     }
+    
     public function store_document(Request $request){
         $request->validate([
             "type_document_id" => "required",
@@ -173,6 +174,7 @@ class CommissionController extends Controller
             $document->save();
             return redirect()->back()->with('success', 'Félicitations ! Vous avez mis à jour le document avec succès ');
      }
+     
         public function delete_document(Document $document){
             $document->delete();
             return back()->with("success", "Document est Supprimé avec succès !");

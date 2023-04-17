@@ -342,12 +342,12 @@
                                                 </div>
 
                                                 <div class="form-group mb-2"><label for="type_document_id">Type document :
-                                                    <span style="color:red">(euillez Sélectionnez le type de document)</span>
+                                                    <span style="color:red">(Veuillez sélectionner le type de document)</span>
                                                 </label>
                                                     {{ (old('marque')) }}
                                                     <select class="form-select form-control" name="type_document_id"
                                                         id="type_document_id" required="">
-                                                        <option value="Choisir le type de document">Veuillez Choisir le type de document
+                                                        <option value="">Veuillez sélectionner le type de document
                                                         </option>
                                                         @if(!is_null($typedocuments))
                                                             @foreach($typedocuments as $typedocument)

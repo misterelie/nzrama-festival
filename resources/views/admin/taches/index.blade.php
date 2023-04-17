@@ -229,7 +229,7 @@
                                                     data-toggle="modal">
                                                     <i class="fa fa-info-circle" aria-hidden="true" 
                                                     title="Membres de la tâche"></i>
-                                                </a>
+                                                </a><br><br>
                                                 <button class="btn btn-sm btn-soft-danger btn-circle mr-2"
                                                     href=""><i class="dripicons-trash" title="Supprimer la tâche"
                                                         aria-hidden="true"></i>
@@ -629,10 +629,9 @@
                                             </thead>
                                             <tbody>
                                                 @if($tache->attribution)
-                                                @if($tache->attribution->commissionAttributtion->membre)
+                                                @if($tache->attribution->commissionAttributtion->membre ?? '' )
                                                 @foreach($tache->attribution->commissionAttributtion->membre as $membre)
-                                                {{-- @if($membre->commission)
-                                                @foreach($membre->comm as $tache) --}}
+                                               
                                                 <tr>
                                                     <td style="width: 10px !important">{{$membre->id}}</td>
                                                     <td>{{ str_replace("mem","MEM",$membre->code_membre ) }}</td>
@@ -641,8 +640,7 @@
                                                     <td>{{$membre->specicite_fonction_membre}}</td>
                                                     <td>{{$membre->commission->nom_commission}}</td>
                                                 </tr>
-                                                {{-- @endforeach
-                                                @endif --}}
+                                               
                                                 @endforeach
                                                 @endif
                                                 @endif

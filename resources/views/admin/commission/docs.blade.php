@@ -124,7 +124,7 @@
                             <th scope="col">Nº</th>
                             <th>Noms fichiers</th>
                             <th>Type de fichiers</th>
-                            <th>Libelles</th>
+                            <th>Commissions</th>
                             <th>Fichiers</th>
                             <th>Dates de création</th>
                             <th style="max-width: 120px !important">Action</th>
@@ -154,7 +154,7 @@
                             <td>
                                @if($commission->document)
                                 @foreach($commission->document as $document)
-                                {{ $document->libelle ?? '' }} <br><br>
+                                {{ $document->commission->nom_commission }} <br><br>
                                 @endforeach
                                 @endif
                             </td>
@@ -279,7 +279,7 @@
                                                 {{ (old('marque')) }}
                                                 <select class="form-select form-control" name="type_document_id"
                                                     id="type_document_id" required>
-                                                    <option value="Choisir le type de document">Veuillez Choisir le type de document
+                                                    <option value="">Veuillez sélectionner le type de document
                                                     </option>
                                                     @if(!is_null($typedocuments))
                                                         @foreach($typedocuments as $typedocument)

@@ -71,6 +71,14 @@ class TacheController extends Controller
         return back()->with("success", "Le statut de la tache a été mis à jour avec succès !");
     }
 
+
+    public function docs_tache(){
+        $typedocuments = TypeDocument::all();
+        $documents = Document::orderBy('created_at', 'ASC')->get();
+        $taches = Tache::orderBy('created_at', 'ASC')->has('document')->get();
+        return view('admin.taches.document', compact('typedocuments', 'documents', 'taches'));
+    }
+
     //SAVE DOCUMENTS TACHES
     public function save_document_tache(Request $request){
         $request->validate([
@@ -96,8 +104,42 @@ class TacheController extends Controller
                         ]);
                 }
         }
-           return redirect()->back()
-           ->with('success', 'Félicitations ! Vous avez ajouté le document avec succès ');
+           return redirect()->back()->with('success', 'Félicitations ! Vous avez ajouté le document avec succès ');
+    }
+
+    public function update_docs_tache(Request $request, Document $document){
+        //dd($request->all());
+        $request->validate([
+             "type_document_id" => "required",
+             "nom_fichier" => "required",
+             "tache_id" =>  "required",
+             "libelle" => "nullable",
+         ]);
+             $document->type_document_id = $request->type_document_id;
+             $document->tache_id = $request->tache_id;
+             $document->nom_fichier = $request->nom_fichier;
+
+             if ($request->hasFile('libelle')) {
+                 $files = $request->file('libelle');
+                 //dd($files);
+                 foreach ($files as $file) {
+                     $filename = $file->getClientOriginalName();
+                     $file->move(public_path("FichiersTaches"), $filename);
+                     $document->Update([
+                         'type_document_id' => $request->type_document_id,
+                         'nom_fichier' => $request->nom_fichier,
+                         'tache_id' => $request->tache_id,
+                         'libelle' => $filename,
+                         ]);
+                 }
+         }
+            $document->save();
+            return redirect()->back()->with('success', 'Félicitations ! Vous avez mis à jour le document avec succès ');
+     }
+
+     public function destroy_document_tache(Document $document){
+        $document->delete();
+        return back()->with("success", "Document est supprimé avec succès !");
     }
 
 }
