@@ -150,7 +150,7 @@ class CommissionController extends Controller
         $request->validate([
              "type_document_id" => "required",
              "nom_fichier" => "required",
-             "commission_id" =>  "required",
+             "commission_id" =>  "nullable",
              "libelle" => "nullable",
          ]);
              $document->type_document_id = $request->type_document_id;

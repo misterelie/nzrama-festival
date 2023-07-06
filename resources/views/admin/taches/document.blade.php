@@ -160,13 +160,13 @@
                             </td>
                             <td>
                                 @if($tache->document)
-                                @foreach($tache->document as $doc)
-                                 @if(!is_null($doc->libelle))
-                                    <a href="{{ asset('FichiersTaches/'.$doc->libelle) }}"
+                                @foreach($tache->document as $document)
+                                 @if(!is_null($document->libelle))
+                                    <a href="{{ asset('FichiersTaches/'.$document->libelle) }}"
                                         target="_blank" rel="noopener noreferrer">
                                         <img src="{{ asset('assets/pdf.png') }}" target-="" 
-                                        alt="{{$doc->libelle}}" 
-                                        title="{{$doc->libelle}},  Télécharger" width="25">
+                                        alt="{{$document->libelle}}" 
+                                        title="{{$document->libelle}},  Télécharger" width="25">
                                     </a><br><br>
                                 @endif
                                 @endforeach
@@ -191,11 +191,11 @@
                                     </button> <br><br>
                                 @endforeach
                                @endif
+                                
                                 </form>
                             </td>
                         </tr>
-                        @endforeach
-                        @endif
+                      
                     </tbody>
                 </table>
             </div>
@@ -237,14 +237,16 @@
                                                         for="validatedCustomFile">Cliquez pour choisir le fichier
                                                         svp !</label><br><br>
 
+                                                        @if($tache)
                                                         @if($tache->document)
-                                                         @if(!is_null($doc->libelle))
-                                                            <a href="{{ asset('FichiersTaches/'.$doc->libelle) }}"
+                                                         @if(!is_null($document->libelle))
+                                                            <a href="{{ asset('FichiersTaches/'.$document->libelle) }}"
                                                                 target="_blank" rel="noopener noreferrer">
                                                                 <img src="{{ asset('assets/pdf.png') }}" target-="" 
-                                                                alt="{{$doc->libelle}}" 
-                                                                title="{{$doc->libelle}},  Télécharger" width="25">
+                                                                alt="{{$document->libelle}}" 
+                                                                title="{{ $document->libelle }},  Télécharger" width="25">
                                                             </a>
+                                                        @endif
                                                         @endif
                                                         @endif
                                                         
@@ -304,7 +306,7 @@
                                         <div class="form-group mb-0 row">
                                             <div class="col-12 mt-2">
                                                 <button class="btn btn-primary btn-block waves-effect waves-light"
-                                                    type="submit" style="color: #ffff">Mettre à jour<i class="fas fa-plus  ml-1"></i>
+                                                    type="submit" style="color: #ffff">Ajouter<i class="fas fa-plus  ml-1"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -327,5 +329,7 @@
             </div>
         @endforeach
     @endif
-</section>
+    @endforeach
+    @endif
+</section> 
 @endsection

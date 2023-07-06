@@ -64,7 +64,7 @@
             <li><a href="javascript: void(0);">
                     <i class="fa fa-users align-self-center menu-icon" aria-hidden="true">
                         </i><span>
-                        GESTION MEMBRES</span><span class="menu-arrow">
+                        MEMBRES</span><span class="menu-arrow">
                     <i class="mdi mdi-chevron-right"></i>
                     </span>
                 </a>
@@ -133,6 +133,18 @@
                                 class="ti-control-record"></i>gestion utilisateurs</a>
                     </li>
                 </ul>
+
+                {{-- <ul class="nav-second-level" aria-expanded="false">
+                    <li class="nav-item"><a class="nav-link" href=""><i
+                                class="ti-control-record"></i>Roles</a>
+                    </li>
+                </ul>
+
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li class="nav-item"><a class="nav-link" href=""><i
+                                class="ti-control-record"></i>Permissions</a>
+                    </li>
+                </ul> --}}
             </li>
             <hr class="hr-dashed hr-menu">
             {{-- <li class="menu-label my-2">Components & Extra</li> 

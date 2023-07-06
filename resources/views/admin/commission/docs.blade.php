@@ -195,8 +195,7 @@
                                 </form>
                             </td>
                         </tr>
-                        @endforeach
-                        @endif
+                      
                     </tbody>
                 </table>
             </div>
@@ -238,17 +237,17 @@
                                                         for="validatedCustomFile">Cliquez pour choisir le fichier
                                                         svp !</label><br><br>
 
+                                                        @if($commission)
                                                         @if($commission->document)
-                                                        {{-- @foreach($commission->document as $doc) --}}
-                                                         @if(!is_null($doc->libelle))
-                                                            <a href="{{ asset('FichierCommission/'.$doc->libelle) }}"
+                                                         @if(!is_null($document->libelle))
+                                                            <a href="{{ asset('FichierCommission/'.$document->libelle) }}"
                                                                 target="_blank" rel="noopener noreferrer">
                                                                 <img src="{{ asset('assets/pdf.png') }}" target-="" 
-                                                                alt="{{$doc->libelle}}" 
-                                                                title="{{$doc->libelle}},  Télécharger" width="25">
+                                                                alt="{{$document->libelle}}" 
+                                                                title="{{ $document->libelle }},  Télécharger" width="25">
                                                             </a>
                                                         @endif
-                                                        {{-- @endforeach --}}
+                                                        @endif
                                                         @endif
                                                         
                                                     <div class="invalid-feedback">Example invalid custom file
@@ -329,6 +328,8 @@
             <!--end modal-->
             </div>
         @endforeach
+    @endif
+    @endforeach
     @endif
 </section> 
 @endsection

@@ -51,6 +51,71 @@
         </div>
 
         <div class="card">
+            {{-- <div class="card-header">
+                <div class="card-body"><button type="button" class="btn btn-outline-primary" data-toggle="modal"
+                        data-target="#exampleModalLogin">Ajouter un type document</button>
+                    <!--modal-->
+                    <div class="modal fade" id="exampleModalLogin" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalDefaultLogin" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <!--end modal-header-->
+                                <div class="modal-body">
+                                    <div class="card-body p-0 auth-header-box">
+                                        <div class="text-center p-3">
+                                            <h4 style="color: red; font-size: 12px" class="mt-3 mb-1 font-weight-semibold font-18">
+                                                Ajouter un type document !</h4>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane active p-3 pt-3" id="LogIn_Tab" role="tabpanel">
+                                            <form class="form-horizontal auth-form my-4" method="POST"
+                                                action="#" enctype="multipart/form-data">
+                                                @csrf
+
+                                                <!--end form-group-->
+                                                <div class="form-group mb-2">
+                                                    <label for="nom_commission">Type document : </label>
+                                                    <div class="input-group mb-3"><input type="text"
+                                                            class="form-control" name="libelle"
+                                                            id="libelle" required=""
+                                                            value="{{ old('libelle') }}"
+                                                            placeholder="Entrez le nom un type document svp !">
+                                                    </div>
+                                                    @error('libelle')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <!--end form-group-->
+                                        </div>
+                                        <!--end form-group-->
+                                        <div class="form-group mb-0 row">
+                                            <div class="col-12 mt-2"><button
+                                                    class="btn btn-primary btn-block waves-effect waves-light"
+                                                    type="submit">Enregistrer<i class="fas fa-sign-in-alt ml-1"></i></button>
+                                            </div>
+                                            <!--end col-->
+                                        </div>
+                                        <!--end form-group-->
+                                        </form>
+                                    </div>
+                                </div>
+                                <!--end card-body-->
+                                <div class="card-body bg-light-alt text-center">
+                                    <span class="text-muted d-none d-sm-inline-block">Planning N'zrama Festival © 2023
+                                    </span>
+                                </div>
+                            </div>
+                            <!--end modal-body-->
+                        </div>
+                        <!--end modal-content-->
+                    </div>
+                    <!--end modal-->
+
+                </div>
+            </div> --}}
+            <!--end card-header-->
             <div class="card-body">
                 <table id="datatable" class="table table-bordered dt-responsive"
                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -95,13 +160,13 @@
                             </td>
                             <td>
                                 @if($attribution->document)
-                                @foreach($attribution->document as $doc)
-                                 @if(!is_null($doc->libelle))
-                                    <a href="{{ asset('FichiersAttribution/'.$doc->libelle) }}"
+                                @foreach($attribution->document as $document)
+                                 @if(!is_null($document->libelle))
+                                    <a href="{{ asset('FichiersAttribution/'.$document->libelle) }}"
                                         target="_blank" rel="noopener noreferrer">
                                         <img src="{{ asset('assets/pdf.png') }}" target-="" 
-                                        alt="{{$doc->libelle}}" 
-                                        title="{{$doc->libelle}},  Télécharger" width="25">
+                                        alt="{{$document->libelle}}" 
+                                        title="{{$document->libelle}},  Télécharger" width="25">
                                     </a><br><br>
                                 @endif
                                 @endforeach
@@ -130,8 +195,7 @@
                                 </form>
                             </td>
                         </tr>
-                        @endforeach
-                        @endif
+                      
                     </tbody>
                 </table>
             </div>
@@ -173,14 +237,16 @@
                                                         for="validatedCustomFile">Cliquez pour choisir le fichier
                                                         svp !</label><br><br>
 
+                                                        @if($attribution)
                                                         @if($attribution->document)
-                                                         @if(!is_null($doc->libelle))
-                                                            <a href="{{ asset('FichiersAttribution/'.$doc->libelle) }}"
+                                                         @if(!is_null($document->libelle))
+                                                            <a href="{{ asset('FichiersAttribution/'.$document->libelle) }}"
                                                                 target="_blank" rel="noopener noreferrer">
                                                                 <img src="{{ asset('assets/pdf.png') }}" target-="" 
-                                                                alt="{{$doc->libelle}}" 
-                                                                title="{{$doc->libelle}},  Télécharger" width="25">
+                                                                alt="{{$document->libelle}}" 
+                                                                title="{{ $document->libelle }},  Télécharger" width="25">
                                                             </a>
+                                                        @endif
                                                         @endif
                                                         @endif
                                                         
@@ -240,7 +306,7 @@
                                         <div class="form-group mb-0 row">
                                             <div class="col-12 mt-2">
                                                 <button class="btn btn-primary btn-block waves-effect waves-light"
-                                                    type="submit" style="color: #ffff">Mettre à jour<i class="fas fa-plus  ml-1"></i>
+                                                    type="submit" style="color: #ffff">Ajouter<i class="fas fa-plus  ml-1"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -262,6 +328,8 @@
             <!--end modal-->
             </div>
         @endforeach
+    @endif
+    @endforeach
     @endif
 </section> 
 @endsection

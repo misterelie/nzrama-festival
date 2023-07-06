@@ -29,6 +29,7 @@ Route::get('/clear-config', function () {
 
 
 
+
 // Route::get('/', [AdminDashboardController::class, 'dashboard']);
 
 Route::get('/', [AdminDashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');

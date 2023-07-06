@@ -631,7 +631,7 @@
                                                 @if($tache->attribution)
                                                 @if($tache->attribution->commissionAttributtion->membre ?? '' )
                                                 @foreach($tache->attribution->commissionAttributtion->membre as $membre)
-                                               
+                                
                                                 <tr>
                                                     <td style="width: 10px !important">{{$membre->id}}</td>
                                                     <td>{{ str_replace("mem","MEM",$membre->code_membre ) }}</td>
@@ -640,7 +640,6 @@
                                                     <td>{{$membre->specicite_fonction_membre}}</td>
                                                     <td>{{$membre->commission->nom_commission}}</td>
                                                 </tr>
-                                               
                                                 @endforeach
                                                 @endif
                                                 @endif
